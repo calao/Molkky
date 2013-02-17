@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="org.molkky:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="org.molkky.war">
+      <element id="artifact" artifact-name="org.molkky:war exploded" />
+    </root>
+  </artifact>
+</component>
