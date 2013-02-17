@@ -1,0 +1,8 @@
+<html t:type="layout" title="About org.molkky"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+        >
+
+<p>About org.molkky application ...</p>
+
+
+</html>
