@@ -1,0 +1,30 @@
+<html t:type="layout" title="Tournoi"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+
+<t:zone t:id="zone">
+
+<t:jquery.datatable t:model="tournoiModel" t:source="tournoisList" t:row="currentTournoi">
+</t:jquery.datatable>
+<t:zone t:id="tournoiTableZone">
+</t:zone>
+<br />
+<t:jquery.dialoglink t:id="link1" t:dialog="addTournoiFormDialog">Ajouter un tournoi</t:jquery.dialoglink>
+</t:zone>
+
+<p:sidebar>
+</p:sidebar>
+
+<t:jquery.dialog t:clientId="addTournoiFormDialog">
+
+    <t:zone t:id="tournoiFormZone" id="tournoiFormZone">
+        <t:form t:id="addTournoiForm">
+            <t:label for="startDate" value="message:startDate"/> <t:datefield t:id="startDate" value="startDate"></t:datefield>
+            <t:label for="endDate" value="message:endDate"/> <t:datefield t:id="endDate" value="endDate"></t:datefield>
+            <t:submit />
+        </t:form>
+    </t:zone>
+</t:jquery.dialog>
+
+</html>

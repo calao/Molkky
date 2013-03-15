@@ -9,6 +9,8 @@ import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.RequestFilter;
 import org.apache.tapestry5.services.RequestHandler;
 import org.apache.tapestry5.services.Response;
+import org.got5.tapestry5.jquery.ImportJQueryUI;
+import org.got5.tapestry5.jquery.JQuerySymbolConstants;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -45,7 +47,8 @@ public class AppModule {
         // locales to just "en" (English). As you add localised message catalogs and other assets,
         // you can extend this list of locales (it's a comma separated series of locale names;
         // the first locale name is the default when there's no reasonable match).
-        configuration.add(SymbolConstants.SUPPORTED_LOCALES, "en");
+        configuration.add(SymbolConstants.SUPPORTED_LOCALES, "fr_be");
+
     }
 
 

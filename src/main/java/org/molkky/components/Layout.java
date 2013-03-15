@@ -13,7 +13,7 @@ import org.apache.tapestry5.ioc.annotations.Symbol;
 /**
  * Layout component for pages of application org.molkky.
  */
-@Import(stylesheet = "context:layout/layout.css")
+@Import(stylesheet = {"context:layout/layout.css", "context:static/css/k-structure.css"})
 public class Layout {
     /**
      * The page title, for the <title> element and the <h1> element.
@@ -49,6 +49,6 @@ public class Layout {
     }
 
     public String[] getPageNames() {
-        return new String[]{"Index", "About", "Contact"};
+        return new String[]{"Index", "Tournoi", "Contact"};
     }
 }

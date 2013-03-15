@@ -1,0 +1,308 @@
+/* for messages on home page*/
+p.posted_on {
+	text-align: right;	
+}
+
+/* for the top search instead of search on website ...*/
+.top-search p {
+	color: #ccc ;	
+}
+.top-search p a {
+	color: #006EAB ;
+	text-decoration: none ;
+}
+.top-search p a:hover {
+	text-decoration: underline ;
+}
+
+p.flashMessage {
+	margin-left: 250px;
+	color: #06A ;
+	font-size: 15px ;
+}
+
+.homemessage {
+	padding-bottom: 5px ;
+	margin-bottom: 20px ;
+	/*background:  url(../images/kawwa/tabs-divider.png) repeat-x bottom center;	*/
+	border-bottom: 1px dashed #aaa;
+}
+/* ------ LANGUAGE CHOICE --- */
+form.k-language legend {
+	display: none ;
+}
+
+form.k-language input {
+	display: none ;
+}
+
+form.k-language p {
+	font-size: 0.75em;
+}
+
+form.k-language label {
+	float: right;
+	width: 2.5em;
+	list-style-type: none;
+	text-align: center;
+	text-transform: uppercase;
+	color: #ccc;
+	padding: 3px 0 2px;
+	cursor: pointer;
+	margin-bottom: 15px ;
+}
+
+form.k-language .ui-corner-left {
+	border-left: none;
+}
+
+form.k-language .ui-corner-right {
+	border-right: none;
+}
+
+.k-radio .ui-button,.k-radio .ui-state-active {
+	background: none;
+	border: none;
+}
+form.k-language .ui-state-active,form.k-language label:hover,form.k-language label:focus
+	{
+	color: #006EAB;
+}
+/* ------ LANGUAGE CHOICE END --- */
+/* END TOP SEARCH */
+
+/* ------------------------------------------------------------- DYNAMIC TABLES */
+/* CB/ dynamicTables */
+table.k-data-table {
+	clear: both;
+}
+
+div.dataTables_wrapper {
+	position: relative;
+	padding-top: 5px;
+	margin-bottom: 25px;
+	/* border-top: 1px dashed #CCC; */
+}
+
+table.k-data-table .dataTables_length {
+	float: left;
+	width: 40%;
+	font-size: 0.7em;
+}
+
+table.k-data-table .dataTables_filter {
+	float: right;
+	width: 40%;
+	font-size: 0.7em;
+	text-align: right;
+}
+
+table.k-data-table .dataTables_filter label {
+	float: none;
+	width: auto;
+	padding: 0;
+	text-align: left;
+}
+
+table.k-data-table th {
+	color: #fff;
+	text-align: center;
+	font-size: 0.75em ;
+	background: #49494B;
+}
+
+table.k-data-table th.sorting {
+	background: #49494B url(../images/kawwa/sort_both.png) right no-repeat;
+	cursor: pointer;
+}
+
+table.k-data-table th.sorting_asc {
+	background: #49494B url(../images/kawwa/sort_asc.png) right no-repeat;
+	cursor: pointer;
+}
+
+table.k-data-table th.sorting_desc {
+	background: #49494B url(../images/kawwa/sort_desc.png) right no-repeat;
+	cursor: pointer;
+}
+
+/* Data table lines */
+div.dataTables_length {
+	float: left;
+	width: 45%;
+}
+
+div.dataTables_length label {
+	font-size: 0.7em;
+	width: auto;
+}
+
+/* Data table filter */
+div.dataTables_filter {
+	
+}
+
+div.dataTables_filter label {
+	float: right;
+	width: 45%;
+	font-size: 0.7em;
+	text-align: right;
+}
+
+/* Data table info */
+div.dataTables_info {
+	position: absolute;
+	width: 20%;
+	top: 7px;
+	left: 40%;
+	font-size: 0.7em;
+}
+
+/* Dynamic pagination */
+div.dataTables_paginate {
+	float: right;
+	width: auto;
+	font-size: 0.7em;
+	margin-top: 10px;
+}
+
+div.dataTables_paginate span {
+	padding: 0 1em;
+}
+
+div.dataTables_paginate .paginate_button {
+	cursor: pointer;
+}
+
+div.dataTables_paginate .paginate_button_disabled {
+	color: #999;
+	cursor: default;
+}
+
+div.dataTables_paginate .paginate_active {
+	font-weight: bold;
+	color: #016EAB;
+	cursor: default;
+}
+
+table.k-data-table tfoot, table.k-data-table caption{
+	display: none ;	
+}
+table.k-data-table {
+	padding-top: 15px ;	
+}
+
+div.dataTables_info {
+	font-size: 0.75em ;	
+}
+
+/* CE/ dynamicTables */
+
+/* ---------- MANDATORY INFO */
+/* CB/ mandatoryInfo */
+p.k-mandatory {
+	display: none;
+}
+
+/* CE/ mandatoryInfo */
+
+/* ------- REQUIRED FIELD */
+/* CB/ requiredField */
+input.k-required {
+	background: #FFF url(../images/kawwa/bg_required.png) 0.2em 0.3em
+		no-repeat;
+	padding-left: 1.2em;
+}
+
+/* CE/ requiredField */
+
+
+/* --- FORM ELEMENTS --- */
+label {
+	float: left;
+	width: 15em;
+	font-weight: bold;
+	text-align: right;
+	padding-right: 15px;
+}
+
+label em {
+	color: #F00;
+	background: transparent;
+}
+
+/* Buttons bar for inputs */
+.k-buttons-bar {
+	clear: both;
+	text-align: right;
+	padding: 0;
+	margin: 0 0 20px;
+	border: none;
+}
+
+/* Buttons bar for links */
+.k-buttons-bar li {
+	display: inline;
+	font-size: 0.8em;
+	list-style-type: none;
+}
+/* --- FORM ELEMENTS END (partially copied --- */
+
+
+.ui-datepicker-trigger {
+	margin-left: 5px ; 	
+}
+.tjq-error-popup {
+	margin-left: 5px ; 	
+}
+
+/* ------------------------------------------------------------- ERROR MESSAGES */
+/* CB/ errorMessages */
+
+div.k-error-messages {
+	clear: both;
+	font-weight: bold;
+	color: #C00;
+	background: #FFF url(../images/kawwa/bg_error_message.png);
+	padding: 10px 0;
+	margin-bottom: 25px;
+	border: 1px solid #C00;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	
+}
+div.k-error-messages h3 {
+ 	width: 60%;
+	background: transparent;
+ 	margin: 0 auto 21px;
+	border-color: #C00;
+}
+div.k-error-messages ul {
+ 	width: 60%;
+ 	margin: 3px auto;
+}
+div.k-error-messages p {
+ 	width: 60%;
+ 	margin: 3px auto;
+}
+	
+/* CE/ errorMessages */
+#loginForm div.k-error-messages
+{margin-bottom: 0px;}
+#loginForm div.k-error-messages h3,#loginForm div.k-error-messages p {
+ 	display:none;
+}
+#loginForm span.k-contextual-error
+{
+ 	display:none;
+}
+
+
+
+
+/* center beandisplay in dialog */
+div.ui-dialog-content table.myBeanDisplay_class {
+	margin: 0 auto; 	
+}

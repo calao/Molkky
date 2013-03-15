@@ -26,17 +26,14 @@
         <property name="annotatedPackages" value="org.molkky.entities"/>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.connection.url">jdbc:mysql://localhost</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/</prop>
                 <prop key="hibernate.dialect">${hibernate.dialect:org.hibernate.dialect.MySQLDialect}</prop>
                 <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
                 <prop key="hibernate.format_sql">true</prop>
-                <prop key="hibernate.search.autoregister_listeners">false</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.connection.username">root</prop>
                 <prop key="hibernate.connection.password"></prop>
-                <prop key="hibernate.show_sql">true</prop>
-
-
+                <prop key="hibernate.connection.autocommit">true</prop>
             </props>
         </property>
 

@@ -189,6 +189,13 @@
             <scope>test</scope>
         </dependency>
 
+       <!-- Tapestry jquery -->
+        <dependency>
+            <groupId>org.got5</groupId>
+            <artifactId>tapestry5-jquery</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>org.molkky</finalName>
@@ -251,6 +258,24 @@
             <id>repository.jboss.org-public</id>
             <name>JBoss repository</name>
             <url>https://repository.jboss.org/nexus/content/groups/public</url>
+        </repository>
+
+        <repository>
+            <id>devlab722-repo</id>
+            <url>http://nexus.devlab722.net/nexus/content/repositories/releases
+            </url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>devlab722-snapshot-repo</id>
+            <url>http://nexus.devlab722.net/nexus/content/repositories/snapshots
+            </url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
         </repository>
     </repositories>
 

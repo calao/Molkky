@@ -1,8 +1,8 @@
 package org.molkky.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,14 +11,23 @@ import javax.persistence.Id;
  * Time: 6:01 PM
  * To change this template use File | Settings | File Templates.
  */
-@javax.persistence.Table(name = "Tournois", schema = "", catalog = "MolkkyDB")
+@Table(name = "Tournois", schema = "", catalog = "MolkkyDB")
 @Entity
-public class TournoiEntity implements java.io.Serializable  {
+public class TournoiEntity implements Serializable  {
     private int idTournoi;
 
-    @javax.persistence.Column(name = "idTournoi")
+    public TournoiEntity() {
+    }
+
+    public TournoiEntity(Date startDate, Date endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    @Column(name = "idTournoi")
     @Id
     public int getIdTournoi() {
+
         return idTournoi;
     }
 
@@ -26,27 +35,27 @@ public class TournoiEntity implements java.io.Serializable  {
         this.idTournoi = idTournoi;
     }
 
-    private String startDate;
+    private Date startDate;
 
-    @javax.persistence.Column(name = "startDate")
+    @Column(name = "startDate")
     @Basic
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    private String endDate;
+    private Date endDate;
 
-    @javax.persistence.Column(name = "endDate")
+    @Column(name = "endDate")
     @Basic
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
