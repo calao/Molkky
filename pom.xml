@@ -16,11 +16,22 @@
             <version>${tapestry-release-version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.tapestry</groupId>
+            <artifactId>tapestry-spring</artifactId>
+            <version>${tapestry-release-version}</version>
+        </dependency>
         <!-- This adds automatic compression of JavaScript and CSS when in production mode. -->
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-yuicompressor</artifactId>
             <version>${tapestry-release-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.13</version>
         </dependency>
 
         <dependency>
@@ -248,7 +259,7 @@
         <servlet-api-release-version>2.5</servlet-api-release-version>
         <testng-release-version>5.14.10</testng-release-version>
         <easymock-release-version>3.0</easymock-release-version>
-        <hibernate.version>4.0.1.Final</hibernate.version>
+        <hibernate.version>3.6.7.Final</hibernate.version>
         <mysql.connector.version>5.1.18</mysql.connector.version>
         <slf4j.version>1.6.1</slf4j.version>
         <spring.version>3.1.0.RELEASE</spring.version>

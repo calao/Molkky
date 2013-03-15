@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?><component name="dataSourceStorage">
-  <data-source source="LOCAL" name="Data Source" product="MySQL" version="5.5.30-cll" jdbc-version="4.0" driver-name="MySQL-AB JDBC Driver" driver-version="mysql-connector-java-5.1.18 ( Revision: tonci.grgin@oracle.com-20110930151701-jfj14ddfq48ifkfq )" uuid="51c8dcc0-471b-4fdf-8bbc-6b98fef6b618">
+  <data-source source="LOCAL" name="Data Source" product="MySQL" version="5.5.29-0ubuntu0.12.10.1" jdbc-version="4.0" driver-name="MySQL-AB JDBC Driver" driver-version="mysql-connector-java-5.1.18 ( Revision: tonci.grgin@oracle.com-20110930151701-jfj14ddfq48ifkfq )" uuid="51c8dcc0-471b-4fdf-8bbc-6b98fef6b618">
     <extra-name-characters>#@</extra-name-characters>
     <identifier-quote-string>`</identifier-quote-string>
     <synchronize>true</synchronize>
     <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-    <jdbc-url>jdbc:mysql://SQL09.FREEMYSQL.NET:3306/molkkydb</jdbc-url>
-    <user-name>calao</user-name>
-    <user-password>df8bdff9dfe5dfc9dfcbdfcedfcfdf9adf98df8b</user-password>
+    <jdbc-url>jdbc:mysql://localhost:3306/</jdbc-url>
+    <user-name>root</user-name>
+    <schema-pattern>MolkkyDB.*</schema-pattern>
+    <default-schemas>MolkkyDB.*</default-schemas>
     <default-dialect>MySQL</default-dialect>
     <libraries>
       <library>
@@ -16,5 +17,80 @@
         <url>file://$PROJECT_DIR$/lib/mysql-connector-license.txt</url>
       </library>
     </libraries>
+    <schema name="" catalog="MolkkyDB" />
+    <table name="Equipes" schema="" catalog="MolkkyDB" type="TABLE">
+      <column name="idEquipe" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="idMembre1" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="idMembre2" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="numero_equipe" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="idPartie" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="idEquipe" />
+      <foreign-key name="fk_Equipes_Members1" columns="idMembre1" ref-table="Members" ref-schema="" ref-catalog="MolkkyDB" ref-columns="idMember" update-rule="3" delete-rule="3" deferrability="2" />
+      <foreign-key name="fk_Equipes_Members2" columns="idMembre2" ref-table="Members" ref-schema="" ref-catalog="MolkkyDB" ref-columns="idMember" update-rule="3" delete-rule="3" deferrability="2" />
+      <foreign-key name="fk_Equipes_Parties1" columns="idPartie" ref-table="Parties" ref-schema="" ref-catalog="MolkkyDB" ref-columns="idPartie" update-rule="3" delete-rule="3" deferrability="2" />
+      <exported-key name="fk_group_has_Equipes_Equipes1" table="groups_lien_Equipes" schema="" catalog="MolkkyDB" columns="idEquipe" />
+    </table>
+    <table name="Groups" schema="" catalog="MolkkyDB" type="TABLE">
+      <column name="idGroup" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="numero_Group" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" />
+      <column name="idMember" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="idGroup" />
+      <foreign-key name="fk_Groups_Members1" columns="idMember" ref-table="Members" ref-schema="" ref-catalog="MolkkyDB" ref-columns="idMember" update-rule="3" delete-rule="3" deferrability="2" />
+      <exported-key name="fk_group_has_Equipes_group1" table="groups_lien_Equipes" schema="" catalog="MolkkyDB" columns="idGroup" />
+    </table>
+    <table name="Manches" schema="" catalog="MolkkyDB" type="TABLE">
+      <column name="idManche" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="numero_manche" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4" />
+      <column name="idPartie" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="idManche" />
+      <foreign-key name="fk_Manches_Partie1" columns="idPartie" ref-table="Parties" ref-schema="" ref-catalog="MolkkyDB" ref-columns="idPartie" update-rule="3" delete-rule="3" deferrability="2" />
+      <exported-key name="fk_Manche_has_Member_Manche" table="Scores" schema="" catalog="MolkkyDB" columns="idManche" />
+    </table>
+    <table name="Members" schema="" catalog="MolkkyDB" type="TABLE">
+      <column name="idMember" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="prenom" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" />
+      <column name="nom" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" />
+      <column name="email" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" />
+      <column name="anniversaire" sqlType="DATE" length="10" precision="0" nullable="true" jdbcType="91" />
+      <column name="pseudonyme" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="idMember" />
+      <exported-key name="fk_Equipes_Members1" table="Equipes" schema="" catalog="MolkkyDB" columns="idMembre1" />
+      <exported-key name="fk_Equipes_Members2" table="Equipes" schema="" catalog="MolkkyDB" columns="idMembre2" />
+      <exported-key name="fk_Groups_Members1" table="Groups" schema="" catalog="MolkkyDB" columns="idMember" />
+      <exported-key name="fk_Manche_has_Member_Member1" table="Scores" schema="" catalog="MolkkyDB" columns="idMember" />
+    </table>
+    <table name="Parties" schema="" catalog="MolkkyDB" type="TABLE">
+      <column name="idPartie" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="date" sqlType="DATE" length="10" precision="0" nullable="true" jdbcType="91" />
+      <column name="lieu" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" />
+      <column name="idTournoi" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="idPartie" />
+      <foreign-key name="fk_Partie_Tournois1" columns="idTournoi" ref-table="Tournois" ref-schema="" ref-catalog="MolkkyDB" ref-columns="idTournoi" update-rule="3" delete-rule="3" deferrability="2" />
+      <exported-key name="fk_Equipes_Parties1" table="Equipes" schema="" catalog="MolkkyDB" columns="idPartie" />
+      <exported-key name="fk_Manches_Partie1" table="Manches" schema="" catalog="MolkkyDB" columns="idPartie" />
+    </table>
+    <table name="Scores" schema="" catalog="MolkkyDB" type="TABLE">
+      <column name="idScore" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="idManche" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="idMember" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="score" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" def="JzAn" />
+      <primary-key name="PRIMARY" columns="idScore" />
+      <foreign-key name="fk_Manche_has_Member_Manche" columns="idManche" ref-table="Manches" ref-schema="" ref-catalog="MolkkyDB" ref-columns="idManche" update-rule="3" delete-rule="3" deferrability="2" />
+      <foreign-key name="fk_Manche_has_Member_Member1" columns="idMember" ref-table="Members" ref-schema="" ref-catalog="MolkkyDB" ref-columns="idMember" update-rule="3" delete-rule="3" deferrability="2" />
+    </table>
+    <table name="Tournois" schema="" catalog="MolkkyDB" type="TABLE">
+      <column name="idTournoi" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="startDate" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" />
+      <column name="endDate" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12" />
+      <primary-key name="PRIMARY" columns="idTournoi" />
+      <exported-key name="fk_Partie_Tournois1" table="Parties" schema="" catalog="MolkkyDB" columns="idTournoi" />
+    </table>
+    <table name="groups_lien_Equipes" schema="" catalog="MolkkyDB" type="TABLE">
+      <column name="idGroup" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <column name="idEquipe" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" />
+      <primary-key name="PRIMARY" columns="idGroup,idEquipe" />
+      <foreign-key name="fk_group_has_Equipes_group1" columns="idGroup" ref-table="Groups" ref-schema="" ref-catalog="MolkkyDB" ref-columns="idGroup" update-rule="3" delete-rule="3" deferrability="2" />
+      <foreign-key name="fk_group_has_Equipes_Equipes1" columns="idEquipe" ref-table="Equipes" ref-schema="" ref-catalog="MolkkyDB" ref-columns="idEquipe" update-rule="3" delete-rule="3" deferrability="2" />
+    </table>
   </data-source>
 </component>

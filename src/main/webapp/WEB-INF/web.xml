@@ -2,38 +2,47 @@
 <!DOCTYPE web-app
         PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
         "http://java.sun.com/dtd/web-app_2_3.dtd">
-<web-app>
-    <display-name>org.molkky Tapestry 5 Application</display-name>
+<web-app id="WebApp_ID" version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <display-name>Molkky Application</display-name>
     <context-param>
         <!-- The only significant configuration for Tapestry 5, this informs Tapestry
 of where to look for pages, components and mixins. -->
         <param-name>tapestry.app-package</param-name>
-        <param-value>org.mollky</param-value>
+        <param-value>org.molkky</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:dao-context.xml</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>spring.profiles.default</param-name>
+        <param-value>default</param-value>
     </context-param>
     <!--
     Specify some additional Modules for two different execution
     modes: development and qa.
     Remember that the default execution mode is production
     -->
-    <context-param>
-        <param-name>tapestry.development-modules</param-name>
-        <param-value>
-            org.mollky.services.DevelopmentModule
-        </param-value>
-    </context-param>
-    <context-param>
-        <param-name>tapestry.qa-modules</param-name>
-        <param-value>
-            org.mollky.services.QaModule
-        </param-value>
-    </context-param>
+
+    <welcome-file-list>
+        <welcome-file>index.tml</welcome-file>
+    </welcome-file-list>
+
     <filter>
         <filter-name>app</filter-name>
-        <filter-class>org.apache.tapestry5.TapestryFilter</filter-class>
+        <!-- Special filter that adds in a T5 IoC module derived from the Spring WebApplicationContext. -->
+        <filter-class>org.apache.tapestry5.spring.TapestrySpringFilter</filter-class>
     </filter>
+
     <filter-mapping>
         <filter-name>app</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
 </web-app>
       

@@ -2,7 +2,7 @@
 <suite name="org.molkky Application Test Suite" annotations="1.5">
     <test name="Unit Tests">
         <packages>
-            <package name="org.mollky"/>
+            <package name="org.molkky"/>
         </packages>
     </test>
 </suite>
