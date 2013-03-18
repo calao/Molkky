@@ -9,6 +9,7 @@ import java.util.Date;
  * User: darksidious
  * Date: 2/25/13
  * Time: 6:01 PM
+
  * To change this template use File | Settings | File Templates.
  */
 @Table(name = "Tournois", schema = "", catalog = "MolkkyDB")
@@ -24,6 +25,12 @@ public class TournoiEntity implements Serializable  {
         this.endDate = endDate;
     }
 
+    public TournoiEntity(String nom, Date startDate, Date endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.nom = nom;
+    }
+
     @Column(name = "idTournoi")
     @Id
     public int getIdTournoi() {
@@ -33,6 +40,16 @@ public class TournoiEntity implements Serializable  {
 
     public void setIdTournoi(int idTournoi) {
         this.idTournoi = idTournoi;
+    }
+
+    private String nom;
+    @Column(name="nom")
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     private Date startDate;
@@ -61,6 +78,7 @@ public class TournoiEntity implements Serializable  {
 
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -68,6 +86,7 @@ public class TournoiEntity implements Serializable  {
 
         if (idTournoi != that.idTournoi) return false;
         if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
+        if (nom != null ? !nom.equals(that.nom) : that.nom != null) return false;
         if (startDate != null ? !startDate.equals(that.startDate) : that.startDate != null) return false;
 
         return true;
@@ -76,6 +95,7 @@ public class TournoiEntity implements Serializable  {
     @Override
     public int hashCode() {
         int result = idTournoi;
+        result = 31 * result + (nom != null ? nom.hashCode() : 0);
         result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         return result;

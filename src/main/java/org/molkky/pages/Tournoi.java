@@ -8,11 +8,14 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.BeanModel;
 import org.apache.tapestry5.beaneditor.PropertyModel;
 import org.apache.tapestry5.beaneditor.RelativePosition;
+import org.apache.tapestry5.corelib.components.ActionLink;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.BeanModelSource;
+import org.got5.tapestry5.jquery.components.Dialog;
 import org.molkky.dao.TournoiDAO;
 import org.molkky.entities.TournoiEntity;
 
@@ -46,6 +49,9 @@ public class Tournoi {
     @Component
     private Zone tournoiFormZone;
 
+    @Component(id = "delete")
+    private ActionLink delete;
+
     @Component
     private Zone tournoiTableZone;
 
@@ -55,14 +61,31 @@ public class Tournoi {
     @Property
     private Date startDate, endDate;
 
+    @Property
+    private String nom;
+
+
     @Inject
     private TournoiDAO tournoiDAO;
 
     void setupRender(){
-          tournoiModel = beanModelSource.createDisplayModel(TournoiEntity.class, messages);
-          tournoiModel.include("startDate", "endDate");
-          tournoisList = tournoiDAO.findAll();
+        tournoiModel = beanModelSource.createDisplayModel(TournoiEntity.class, messages);
+        tournoiModel.add("debut", null);
+        tournoiModel.add("fin", null);
+        tournoiModel.add("delete", null);
+        tournoiModel.include("nom", "debut","fin", "delete");
+        tournoisList = tournoiDAO.findAll();
+    }
 
+    void onActionFromDelete(int id)
+    {
+       tournoiDAO.delete(tournoiDAO.findById(id));
+    }
+    public JSONObject getParams() {
+        JSONObject options = new JSONObject();
+        options.put("title", "Créer un nouveau tournoi");
+        options.put("width", 520);
+        return options;
     }
 
     @OnEvent(value = EventConstants.SUCCESS, component = "addTournoiForm")
@@ -70,9 +93,23 @@ public class Tournoi {
 
         if(startDate!=null && endDate!=null)
         {
-            tournoiDAO.save(new TournoiEntity(startDate, endDate));
+         int id = (nom == null ?  tournoiDAO.save(new TournoiEntity(startDate, endDate)) : tournoiDAO.save(new TournoiEntity(nom,startDate, endDate)));
         }
     }
+
+    public String getStartDateString(){
+       return removeTime(currentTournoi.getStartDate().toString());
+    }
+
+    public String getEndDateString(){
+      return removeTime(currentTournoi.getEndDate().toString());
+    }
+
+    public String removeTime(String date)
+    {
+        return date.replace(" 00:00:00.0","");
+    }
+
 
 
 }

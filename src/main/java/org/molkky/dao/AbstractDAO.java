@@ -39,6 +39,7 @@ public interface AbstractDAO<E, KeyType> {
      */
     void delete(E persistentObject);
 
+
     /**
      * Finds an entity by its identifier.
      *

@@ -49,6 +49,7 @@ public class AppModule {
         // the first locale name is the default when there's no reasonable match).
         configuration.add(SymbolConstants.SUPPORTED_LOCALES, "fr_be");
 
+        configuration.add(SymbolConstants.HMAC_PASSPHRASE, "EA5F83E8-8F2B-11E2-BFD1-08196288709B");
     }
 
 

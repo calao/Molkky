@@ -5,24 +5,41 @@
 
 <t:zone t:id="zone">
 
-<t:jquery.datatable t:model="tournoiModel" t:source="tournoisList" t:row="currentTournoi">
-</t:jquery.datatable>
-<t:zone t:id="tournoiTableZone">
-</t:zone>
-<br />
-<t:jquery.dialoglink t:id="link1" t:dialog="addTournoiFormDialog">Ajouter un tournoi</t:jquery.dialoglink>
+    <t:jquery.datatable t:model="tournoiModel" t:source="tournoisList" t:row="currentTournoi">
+        <p:debutCell>${startDateString}</p:debutCell>
+        <p:finCell>${endDateString}</p:finCell>
+        <p:deleteCell><t:actionlink t:id="delete" id="delete" context="currentTournoi.idTournoi">${message:delete}</t:actionlink> </p:deleteCell>
+    </t:jquery.datatable>
+    <t:zone t:id="tournoiTableZone">
+    </t:zone>
+    <br/>
+    <t:jquery.dialoglink t:id="link1" t:dialog="addTournoiFormDialog">Ajouter un tournoi</t:jquery.dialoglink>
 </t:zone>
 
 <p:sidebar>
+    <p>
+        ${message:bienvenue}
+    </p>
 </p:sidebar>
 
-<t:jquery.dialog t:clientId="addTournoiFormDialog">
+<t:jquery.dialog t:clientId="addTournoiFormDialog" params="params">
 
-    <t:zone t:id="tournoiFormZone" id="tournoiFormZone">
-        <t:form t:id="addTournoiForm">
-            <t:label for="startDate" value="message:startDate"/> <t:datefield t:id="startDate" value="startDate"></t:datefield>
-            <t:label for="endDate" value="message:endDate"/> <t:datefield t:id="endDate" value="endDate"></t:datefield>
-            <t:submit />
+    <t:zone t:id="tournoiFormZone" class="tournoiFormZone" id="tournoiFormZone">
+        <t:form t:id="addTournoiForm" class="tournoiForm">
+            <p>
+                <t:label for="nom">${message:nom}</t:label>
+                <t:textfield t:id="nom" validate="maxlength=30" value="nom"/>
+            </p>
+            <p>
+                <t:label for="startDate">${message:startDate}</t:label>
+                <t:datefield validate="required" t:id="startDate" value="startDate"/>
+            </p>
+            <p>
+                <t:label for="endDate">${message:endDate}</t:label>
+                <t:datefield t:id="endDate" validate="required" value="endDate"/>
+            </p>
+            <br/>
+            <t:submit/>
         </t:form>
     </t:zone>
 </t:jquery.dialog>
