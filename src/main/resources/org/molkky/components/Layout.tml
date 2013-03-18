@@ -32,6 +32,7 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
 
             </li>
         </ul>
+        <t:selectTournoi />
     </div>
 </div>
 <!-- end header -->

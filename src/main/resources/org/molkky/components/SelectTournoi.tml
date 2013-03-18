@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+
+    <form t:id="selectTournoiForm">
+     <t:label for="tournoiSelection">${message:select}</t:label><t:select t:id="tournoiSelection" t:value="selectedTournoi" t:model="tournoiSelectModel" onChange="submit()" />
+    </form>
+</t:container>

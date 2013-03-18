@@ -9,6 +9,7 @@ import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
+import org.molkky.services.TournoiEncoder;
 
 /**
  * Layout component for pages of application org.molkky.
@@ -35,6 +36,9 @@ public class Layout {
 
     @Inject
     private ComponentResources resources;
+
+    @Property
+    private TournoiEncoder tournoiEncoder;
 
     @Property
     @Inject

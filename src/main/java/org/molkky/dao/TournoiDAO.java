@@ -2,6 +2,8 @@ package org.molkky.dao;
 
 import org.molkky.entities.TournoiEntity;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: darksidious
@@ -11,4 +13,6 @@ import org.molkky.entities.TournoiEntity;
  */
 
 public interface TournoiDAO extends AbstractDAO<TournoiEntity, Integer> {
+
+    TournoiEntity findLast();
 }
