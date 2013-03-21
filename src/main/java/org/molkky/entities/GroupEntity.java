@@ -38,6 +38,7 @@ public class GroupEntity implements java.io.Serializable  {
         this.numeroGroup = numeroGroup;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

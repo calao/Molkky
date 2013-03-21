@@ -1,5 +1,7 @@
 package org.molkky.entities;
 
+import org.springframework.format.datetime.joda.JodaTimeContext;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -100,4 +102,11 @@ public class TournoiEntity implements Serializable  {
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         return result;
     }
+
+    @Transient
+    public String getLabel(){
+        return nom + " du " + startDate.toString().replace("00:00:00.0","") +
+                " au " + endDate.toString().replace("00:00:00.0","");
+    }
+
 }

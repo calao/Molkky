@@ -1,0 +1,55 @@
+<html t:type="layout" title="Membre"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+<t:zone t:id="zone">
+
+    <t:jquery.datatable t:model="membreModel" t:source="membresList" t:row="currentMembre">
+        <p:deleteCell>
+            <t:actionlink t:id="delete" id="delete" context="currentMembre.idMembre">${message:delete}</t:actionlink>
+        </p:deleteCell>
+    </t:jquery.datatable>
+    <br/>
+    <t:jquery.dialoglink t:id="link1" t:dialog="addMembreFormDialog">Ajouter un membre</t:jquery.dialoglink>
+</t:zone>
+
+<p:sidebar>
+    <p>
+        ${message:bienvenue}
+    </p>
+</p:sidebar>
+
+<t:jquery.dialog t:clientId="addMembreFormDialog" params="params">
+
+    <t:zone t:id="membreFormZone" class="membreFormZone" id="membreFormZone">
+        <t:form t:id="addMembreForm" class="membreForm">
+            <p>
+                <t:label for="pseudonyme">${message:pseudonyme}</t:label>
+                <t:textfield t:id="pseudonyme" validate="maxlength=30" value="pseudonyme"/>
+            </p>
+            <p>
+                <t:label for="prenom">${message:prenom}</t:label>
+                <t:textfield t:id="prenom" validate="required, maxlength=30" value="prenom"/>
+            </p>
+            <p>
+                <t:label for="nom">${message:nom}</t:label>
+                <t:textfield t:id="nom" validate="required, maxlength=30" value="nom"/>
+            </p>
+            <p>
+                <t:label for="email">${message:email}</t:label>
+                <t:textfield t:id="email" value="email"/>
+            </p>
+            <p>
+                <t:label for="anniversaire">${message:anniversaire}</t:label>
+                <t:datefield  t:id="anniversaire" value="anniversaire"/>
+            </p>
+
+            <br/>
+            <t:submit/>
+
+        </t:form>
+    </t:zone>
+</t:jquery.dialog>
+
+
+</html>

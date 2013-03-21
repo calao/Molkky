@@ -3,7 +3,8 @@ package org.molkky.entities;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Date;
+import javax.persistence.Transient;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,17 +15,29 @@ import java.sql.Date;
  */
 @javax.persistence.Table(name = "Members", schema = "", catalog = "MolkkyDB")
 @Entity
-public class MemberEntity implements java.io.Serializable  {
-    private int idMember;
+public class MembreEntity implements java.io.Serializable  {
+
+    public MembreEntity() {
+    }
+
+    public MembreEntity(String prenom, String nom, String email, Date anniversaire, String pseudonyme) {
+        this.prenom = prenom;
+        this.nom = nom;
+        this.email = email;
+        this.anniversaire = anniversaire;
+        this.pseudonyme = pseudonyme;
+    }
+
+    private int idMembre;
 
     @javax.persistence.Column(name = "idMember")
     @Id
-    public int getIdMember() {
-        return idMember;
+    public int getIdMembre() {
+        return idMembre;
     }
 
-    public void setIdMember(int idMember) {
-        this.idMember = idMember;
+    public void setIdMembre(int idMembre) {
+        this.idMembre = idMembre;
     }
 
     private String prenom;
@@ -92,9 +105,9 @@ public class MemberEntity implements java.io.Serializable  {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        MemberEntity that = (MemberEntity) o;
+        MembreEntity that = (MembreEntity) o;
 
-        if (idMember != that.idMember) return false;
+        if (idMembre != that.idMembre) return false;
         if (anniversaire != null ? !anniversaire.equals(that.anniversaire) : that.anniversaire != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (nom != null ? !nom.equals(that.nom) : that.nom != null) return false;
@@ -106,12 +119,17 @@ public class MemberEntity implements java.io.Serializable  {
 
     @Override
     public int hashCode() {
-        int result = idMember;
+        int result = idMembre;
         result = 31 * result + (prenom != null ? prenom.hashCode() : 0);
         result = 31 * result + (nom != null ? nom.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (anniversaire != null ? anniversaire.hashCode() : 0);
         result = 31 * result + (pseudonyme != null ? pseudonyme.hashCode() : 0);
         return result;
+    }
+
+    @Transient
+    public String getLabel(){
+        return prenom + " " + nom + " " + (pseudonyme == null ? "" : "("+pseudonyme+")");
     }
 }

@@ -10,8 +10,6 @@
         <p:finCell>${endDateString}</p:finCell>
         <p:deleteCell><t:actionlink t:id="delete" id="delete" context="currentTournoi.idTournoi">${message:delete}</t:actionlink> </p:deleteCell>
     </t:jquery.datatable>
-    <t:zone t:id="tournoiTableZone">
-    </t:zone>
     <br/>
     <t:jquery.dialoglink t:id="link1" t:dialog="addTournoiFormDialog">Ajouter un tournoi</t:jquery.dialoglink>
 </t:zone>

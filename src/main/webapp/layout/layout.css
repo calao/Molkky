@@ -138,6 +138,21 @@ div.menu .current_page_item A {
 div.menu .current_page_item a {
 }
 
+/* Tournoi */
+
+div.tournoiBar {
+    width: 300px;
+}
+
+label.labelTournoi{
+    width: 100%;
+}
+
+div.tournoiComponent {
+    float: right;
+}
+
+
 /* Page */
 
 div.page {
@@ -197,6 +212,10 @@ div.content {
     color: #FFFFFF;
 }
 
+td.center {
+    text-align: center;
+}
+
 .post .links a:hover {
 }
 
@@ -214,7 +233,7 @@ div.content {
 
 /* Sidebar */
 
-div.sidebar {
+div.rightPanel {
     float: right;
     width: 300px;
     margin-top: 30px;

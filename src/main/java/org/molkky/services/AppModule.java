@@ -21,7 +21,7 @@ public class AppModule {
     public static void bind(ServiceBinder binder) {
         // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
 
-        // Make bind() calls on the binder object to define most IoC services.
+        // Make bind() callmembres on the binder object to define most IoC services.
         // Use service builder methods (example below) when the implementation
         // is provided inline, or requires more initialization than simply
         // invoking the constructor.
@@ -51,6 +51,8 @@ public class AppModule {
         // you can extend this list of locales (it's a comma separated series of locale names;
         // the first locale name is the default when there's no reasonable match).
         configuration.add(SymbolConstants.SUPPORTED_LOCALES, "fr_be");
+
+        configuration.add(SymbolConstants.START_PAGE_NAME, "tournoi");
 
         configuration.add(SymbolConstants.HMAC_PASSPHRASE, "EA5F83E8-8F2B-11E2-BFD1-08196288709B");
     }

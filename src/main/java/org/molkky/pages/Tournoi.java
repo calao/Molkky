@@ -52,9 +52,6 @@ public class Tournoi {
     @Component(id = "delete")
     private ActionLink delete;
 
-    @Component
-    private Zone tournoiTableZone;
-
     @Inject
     private Messages messages;
 

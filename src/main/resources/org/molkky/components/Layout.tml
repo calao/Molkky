@@ -32,17 +32,24 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
 
             </li>
         </ul>
-        <t:selectTournoi />
     </div>
+    <br/>
 </div>
 <!-- end header -->
 <!-- start page -->
 <div class="page">
+
     <!-- start sidebar -->
-    <div class="sidebar">
+    <div class="rightPanel">
+
+
+            <div class="tournoiComponent">
+                <t:selectTournoi />
+            </div>
+        <div class="sidebar">
+
         <ul>
-            <li class="search" style="background: none;">
-            </li>
+            <li />
             <li>
                 <t:alerts/>
             </li>
@@ -54,6 +61,7 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
                 </div>
             </li>
         </ul>
+        </div>
     </div>
     <!-- end sidebar -->
     <!-- start content -->

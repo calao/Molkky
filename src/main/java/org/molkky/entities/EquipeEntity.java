@@ -1,6 +1,7 @@
 package org.molkky.entities;
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -39,6 +40,40 @@ public class EquipeEntity implements java.io.Serializable {
 
     public void setNumeroEquipe(int numeroEquipe) {
         this.numeroEquipe = numeroEquipe;
+
+    }
+
+    public int idMembre1;
+
+    @Column(name="idMembre1")
+    public int getIdMembre1() {
+        return idMembre1;
+    }
+
+    public void setIdMembre1(int idMembre1) {
+        this.idMembre1 = idMembre1;
+    }
+
+    public int idMembre2;
+
+    @Column(name="idMembre2")
+    public int getIdMembre2() {
+        return idMembre2;
+    }
+
+    public void setIdMembre2(int idMembre2) {
+        this.idMembre2 = idMembre2;
+    }
+
+    public int idPartie;
+
+    @Column(name="idPartie")
+    public int getIdPartie() {
+        return idPartie;
+    }
+
+    public void setIdPartie(int idPartie) {
+        this.idPartie = idPartie;
     }
 
     @Override

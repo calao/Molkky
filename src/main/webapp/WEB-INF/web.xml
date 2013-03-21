@@ -24,13 +24,13 @@ of where to look for pages, components and mixins. -->
         <param-value>default</param-value>
     </context-param>
     <!--
-    Specify some additional Modules for two different execution
+    Specify some additional Modules findexor two different execution
     modes: development and qa.
     Remember that the default execution mode is production
     -->
 
     <welcome-file-list>
-        <welcome-file>index.tml</welcome-file>
+        <welcome-file>tournoi.tml</welcome-file>
     </welcome-file-list>
 
     <filter>

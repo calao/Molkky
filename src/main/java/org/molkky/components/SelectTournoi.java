@@ -49,7 +49,7 @@ public class SelectTournoi {
         if(!selectedTournoiExists)
         selectedTournoi = tournoiDAO.findLast();
         // create a SelectModel from my list of colors
-        tournoiSelectModel = selectModelFactory.create(tournois, "nom");
+        tournoiSelectModel = selectModelFactory.create(tournois, "label");
     }
 
 }

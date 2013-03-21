@@ -1,0 +1,69 @@
+<html t:type="layout" title="Equipe"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+<fieldset>
+
+    <legend>${message:addEquipe}</legend>
+    <t:form t:id="addMembreForm" class="membreForm">
+        <table>
+            <tr>
+                <td class="center">
+                    <t:label for="numeroEquipe">${message:numeroEquipe}</t:label>
+                </td>
+                <td class="center">
+                    <t:label for="membre1">${message:membre1}</t:label>
+                </td>
+                <td class="center">
+                    <t:label for="membre2">${message:membre2}</t:label>
+                </td>
+                <td/>
+            </tr>
+            <tr>
+                <td class="center">
+                    <t:textfield t:id="numeroEquipe" style="width:10px" value="numeroEquipe"/>
+                </td>
+                <td class="center">
+                    <t:select t:id="membre1" blankOption="never" t:value="selectedMembre1" t:model="membreSelectModel"
+                              encoder="membreEncoder"/>
+                </td>
+                <td class="center">
+                    <t:select t:id="membre2" blankOption="never" t:value="selectedMembre2" t:model="membreSelectModel"
+                              encoder="membreEncoder"/>
+                </td>
+                <td class="center">
+                    <t:submit value="${message:submit}"/>
+                </td>
+            </tr>
+        </table>
+
+    </t:form>
+    <br />
+</fieldset>
+
+<br/>
+
+<t:zone t:id="zone">
+
+    <t:jquery.datatable t:model="equipeModel" t:source="equipesList" t:row="currentEquipe">
+        <p:membre1Cell>
+            ${membre1Label}
+        </p:membre1Cell>
+        <p:membre2Cell>
+            ${membre2Label}
+        </p:membre2Cell>
+        <!--<p:deleteCell>-->
+        <!--<t:actionlink t:id="delete" id="delete" context="currentEquipe.idEquipe">${message:delete}</t:actionlink>-->
+        <!--</p:deleteCell>-->
+    </t:jquery.datatable>
+    <br/>
+</t:zone>
+
+
+<p:sidebar>
+    <p>
+        ${message:bienvenue}
+    </p>
+</p:sidebar>
+
+</html>
