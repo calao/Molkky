@@ -3,7 +3,6 @@ package org.molkky.dao.impl;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.molkky.dao.EquipeDAO;

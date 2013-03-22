@@ -8,9 +8,12 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.SelectModelFactory;
+import org.molkky.dao.PartieDAO;
 import org.molkky.dao.TournoiDAO;
+import org.molkky.entities.PartieEntity;
 import org.molkky.entities.TournoiEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,10 +26,10 @@ import java.util.List;
 public class SelectTournoi {
 
     @Property
-    private SelectModel tournoiSelectModel;
+    private SelectModel tournoiSelectModel, partieSelectModel;
 
     @Component
-    private Form selectTournoiForm;
+    private Form selectTournoiForm, selectPartieForm;
 
     @Inject
     SelectModelFactory selectModelFactory;
@@ -35,21 +38,57 @@ public class SelectTournoi {
     @Property
     private TournoiEntity selectedTournoi;
 
+    @SessionState
+    @Property
+    private PartieEntity selectedPartie;
+
+    private boolean selectedPartieExists;
     private boolean selectedTournoiExists;
 
     @Component
     private Select tournoiSelection;
+    @Component
+    private Select partieSelection;
 
     @Inject
     TournoiDAO tournoiDAO;
 
+    @Inject
+    PartieDAO partieDAO;
+
+    private List<TournoiEntity> tournois = new ArrayList<TournoiEntity>();
+    private List<PartieEntity> parties = new ArrayList<PartieEntity>();
+
     void setupRender() {
-        // invoke my service to find all colors, e.g. in the database
-        List<TournoiEntity> tournois = tournoiDAO.findAll();
-        if(!selectedTournoiExists)
-        selectedTournoi = tournoiDAO.findLast();
-        // create a SelectModel from my list of colors
-        tournoiSelectModel = selectModelFactory.create(tournois, "label");
+
+        tournois = tournoiDAO.findAll();
+        if (!selectedTournoiExists)
+            selectedTournoi = tournoiDAO.findLast();
+
+        if (tournois.size() != 0) {
+            tournoiSelectModel = selectModelFactory.create(tournois, "label");
+
+            if (selectedTournoiExists)
+            {if (selectedTournoi != null)
+                { parties = partieDAO.findAllByTournoi(selectedTournoi.getIdTournoi());
+                  if(!selectedPartieExists || selectedPartie==null || !parties.contains(selectedPartie))
+                  selectedPartie = partieDAO.findLastByTournoi(selectedTournoi.getIdTournoi());
+                }
+            }
+
+            if (parties.size() != 0) {
+                partieSelectModel = selectModelFactory.create(parties, "label");
+            }
+        }
+
+    }
+
+    public boolean isPartie() {
+        return parties != null && parties.size()>0;
+    }
+
+    public boolean isTournoi() {
+        return tournois != null && tournois.size()>0;
     }
 
 }

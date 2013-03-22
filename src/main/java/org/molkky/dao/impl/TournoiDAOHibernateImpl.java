@@ -31,9 +31,13 @@ public class TournoiDAOHibernateImpl extends AbstractDAOHibernateImpl<TournoiEnt
     public TournoiEntity findLast() {
         Criteria criteria = getSession().createCriteria(getDomainClass());
         Date date = (Date) criteria.setProjection(Projections.max("startDate")).uniqueResult();
+        if(date!=null)
+        {
         criteria = getSession().createCriteria(getDomainClass());
         criteria.add(Restrictions.eq("startDate", date));
         List<TournoiEntity> tournois = (List<TournoiEntity>) criteria.list();
         return tournois == null ? null : tournois.get(0);
+        }
+        return null;
     }
 }

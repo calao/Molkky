@@ -3,7 +3,8 @@ package org.molkky.entities;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.sql.Date;
+import javax.persistence.Transient;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,6 +52,27 @@ public class PartieEntity implements java.io.Serializable  {
         this.lieu = lieu;
     }
 
+    private int idTournoi;
+
+    @javax.persistence.Column(name = "idTournoi")
+    @Basic
+    public int getIdTournoi() {
+        return idTournoi;
+    }
+
+    public void setIdTournoi(int idTournoi) {
+        this.idTournoi = idTournoi;
+    }
+
+    public PartieEntity() {
+    }
+
+    public PartieEntity(Date date, String lieu, int idTournoi) {
+        this.date = date;
+        this.lieu = lieu;
+        this.idTournoi = idTournoi;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -71,5 +93,10 @@ public class PartieEntity implements java.io.Serializable  {
         result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (lieu != null ? lieu.hashCode() : 0);
         return result;
+    }
+
+    @Transient
+    public String getLabel(){
+        return "le "+date.toString().replace(" 00:00:00.0","")+">"+lieu;
     }
 }

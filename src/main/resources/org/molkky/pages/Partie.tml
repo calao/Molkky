@@ -1,0 +1,42 @@
+<html t:type="layout" title="Tournoi"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+
+<t:zone t:id="zone">
+
+    <t:jquery.datatable t:model="partieModel" t:source="partiesList" t:row="currentPartie">
+        <p:datePartieCell>${dateString}</p:datePartieCell>
+        <p:deleteCell>
+            <t:actionlink t:id="delete" id="delete" context="currentPartie.idPartie">${message:delete}</t:actionlink>
+        </p:deleteCell>
+    </t:jquery.datatable>
+    <br/>
+    <t:jquery.dialoglink t:id="link1" t:dialog="addPartieFormDialog">Ajouter une Partie</t:jquery.dialoglink>
+</t:zone>
+
+<p:sidebar>
+    <p>
+        ${message:bienvenue}
+    </p>
+</p:sidebar>
+
+<t:jquery.dialog t:clientId="addPartieFormDialog" params="params">
+
+    <t:zone t:id="partieFormZone" class="partieFormZone" id="partieFormZone">
+        <t:form t:id="addPartieForm" class="partieForm">
+            <p>
+                <t:label for="lieu">${message:lieu}</t:label>
+                <t:textfield t:id="lieu" validate="required" value="lieu"/>
+            </p>
+            <p>
+                <t:label for="date">${message:date}</t:label>
+                <t:datefield validate="required" t:id="date" value="date"/>
+            </p>
+            <br/>
+            <t:submit/>
+        </t:form>
+    </t:zone>
+</t:jquery.dialog>
+
+</html>

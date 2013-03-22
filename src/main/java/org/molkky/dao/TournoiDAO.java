@@ -2,8 +2,6 @@ package org.molkky.dao;
 
 import org.molkky.entities.TournoiEntity;
 
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * User: darksidious

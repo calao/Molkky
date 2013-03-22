@@ -6,8 +6,7 @@ import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Local;
 import org.apache.tapestry5.services.*;
-import org.got5.tapestry5.jquery.ImportJQueryUI;
-import org.got5.tapestry5.jquery.JQuerySymbolConstants;
+import org.molkky.entities.PartieEntity;
 import org.molkky.entities.TournoiEntity;
 import org.slf4j.Logger;
 
@@ -27,9 +26,10 @@ public class AppModule {
         // invoking the constructor.
     }
 
-    public static void contributeValueEncoderSource(MappedConfiguration<Class<TournoiEntity>,
-            ValueEncoderFactory<TournoiEntity>> configuration) {
+    public static void contributeValueEncoderSource(MappedConfiguration<Class,
+            ValueEncoderFactory> configuration) {
         configuration.addInstance(TournoiEntity.class, TournoiEncoder.class);
+        configuration.addInstance(PartieEntity.class, PartieEncoder.class);
     }
 
     public static void contributeFactoryDefaults(

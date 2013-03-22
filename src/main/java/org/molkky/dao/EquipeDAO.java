@@ -1,7 +1,6 @@
 package org.molkky.dao;
 
 import org.molkky.entities.EquipeEntity;
-import org.molkky.entities.TournoiEntity;
 
 /**
  * Created with IntelliJ IDEA.

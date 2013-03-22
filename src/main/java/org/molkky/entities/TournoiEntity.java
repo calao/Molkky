@@ -1,7 +1,5 @@
 package org.molkky.entities;
 
-import org.springframework.format.datetime.joda.JodaTimeContext;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
