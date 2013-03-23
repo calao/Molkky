@@ -2,8 +2,11 @@ package org.molkky.pages;
 
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.ValueEncoder;
+import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.beaneditor.BeanModel;
+import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -13,7 +16,9 @@ import org.molkky.dao.EquipeDAO;
 import org.molkky.dao.MembreDAO;
 import org.molkky.entities.EquipeEntity;
 import org.molkky.entities.MembreEntity;
+import org.molkky.entities.PartieEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,16 +31,16 @@ import java.util.List;
 public class Equipe {
 
     @Property
-    private int numeroEquipe;
+    private Integer numeroEquipe = 1;
 
     @Property
     private Select membre1, membre2;
 
     @Property
-    private MembreEntity selectedMembre1, selectedMembre2;
+    private Integer selectedMembre1, selectedMembre2;
 
     @Property
-    private List<MembreEntity> membres;
+    private List<MembreEntity> membres = new ArrayList<MembreEntity>();
 
     @Property
     private BeanModel<EquipeEntity> equipeModel;
@@ -64,35 +69,53 @@ public class Equipe {
     @Property
     private List<EquipeEntity> equipesList;
 
+    @Component
+    private Form addEquipeForm;
+
+    @SessionState(create = false)
+    @Property
+    private PartieEntity selectedPartie;
+
+    private boolean selectedPartieExists;
+
     void setupRender() {
 
-        membres = membreDAO.getAllWithoutEquipeByPartie(1);
-        numeroEquipe = equipeDAO.getMaxNumberByPartie(1);
+        if (selectedPartieExists && selectedPartie != null) {
+            numeroEquipe = equipeDAO.getMaxNumberByPartie(selectedPartie.getIdPartie()) + 1;
+            membres = membreDAO.getAllWithoutEquipeByPartie(selectedPartie.getIdPartie());
+            equipesList = equipeDAO.findAllByPartie(selectedPartie.getIdPartie());
+        }
+
         membreSelectModel = selectModelFactory.create(membres, "label");
+
         equipeModel = beanModelSource.createDisplayModel(EquipeEntity.class, messages);
         equipeModel.add("membre1", null);
         equipeModel.add("membre2", null);
-        equipeModel.include("numeroEquipe", "membre1", "membre2");
+        equipeModel.add("delete", null);
+        equipeModel.include("numeroEquipe", "membre1", "membre2", "delete");
     }
 
-    public ValueEncoder<MembreEntity> getMembreEncoder() {
-
-        return new ValueEncoder<MembreEntity>() {
-
-            public String toClient(MembreEntity value) {
-                // return the given object's ID
-                return String.valueOf(value.getIdMembre());
+    void onValidateFromAddEquipeForm() {
+        if (!selectedPartieExists || selectedPartie == null) {
+            addEquipeForm.recordError(messages.get("noPartie"));
+        } else {
+            if (numeroEquipe == null) {
+                addEquipeForm.recordError(messages.get("numberNull"));
+            } else if (equipeDAO.checkNumber(selectedPartie.getIdPartie(), numeroEquipe)) {
+                addEquipeForm.recordError(messages.get("numberExist"));
             }
 
-            public MembreEntity toValue(String id) {
-                // find the color object of the given ID in the database
-                return membreDAO.findById(Integer.parseInt(id));
-            }
+        }
 
-            public ValueEncoder<MembreEntity> create(Class<MembreEntity> type) {
-                return this;
-            }
-        };
+        if (selectedMembre1 == null || selectedMembre2 == null) {
+            addEquipeForm.recordError(messages.get("noMembre"));
+        }
+
+
+    }
+
+    void onSuccessFromAddEquipeForm() {
+        equipeDAO.save(new EquipeEntity(numeroEquipe, selectedMembre1, selectedMembre2, selectedPartie.getIdPartie()));
     }
 
     public String getMembre1Label() {
@@ -102,4 +125,11 @@ public class Equipe {
     public String getMembre2Label() {
         return membreDAO.findById(currentEquipe.getIdMembre2()).getLabel();
     }
+
+    void onActionFromDelete(int id) {
+        EquipeEntity equipe = new EquipeEntity();
+        equipe.setIdEquipe(id);
+        equipeDAO.delete(equipe);
+    }
+
 }

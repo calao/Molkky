@@ -5,7 +5,8 @@
 <fieldset>
 
     <legend>${message:addEquipe}</legend>
-    <t:form t:id="addMembreForm" class="membreForm">
+    <t:form t:id="addEquipeForm" class="equipeForm">
+        <t:errors />
         <table>
             <tr>
                 <td class="center">
@@ -25,11 +26,11 @@
                 </td>
                 <td class="center">
                     <t:select t:id="membre1" blankOption="never" t:value="selectedMembre1" t:model="membreSelectModel"
-                              encoder="membreEncoder"/>
+                              />
                 </td>
                 <td class="center">
                     <t:select t:id="membre2" blankOption="never" t:value="selectedMembre2" t:model="membreSelectModel"
-                              encoder="membreEncoder"/>
+                              />
                 </td>
                 <td class="center">
                     <t:submit value="${message:submit}"/>
@@ -52,9 +53,9 @@
         <p:membre2Cell>
             ${membre2Label}
         </p:membre2Cell>
-        <!--<p:deleteCell>-->
-        <!--<t:actionlink t:id="delete" id="delete" context="currentEquipe.idEquipe">${message:delete}</t:actionlink>-->
-        <!--</p:deleteCell>-->
+        <p:deleteCell>
+         <t:actionlink t:id="delete" id="delete" context="currentEquipe.idEquipe">${message:delete}</t:actionlink>
+        </p:deleteCell>
     </t:jquery.datatable>
     <br/>
 </t:zone>

@@ -48,7 +48,7 @@ public class Partie {
     @Component
     private Zone partieFormZone;
 
-    @SessionState
+    @SessionState(create = false)
     private TournoiEntity selectedTournoi;
 
     private boolean selectedTournoiExists;

@@ -1,5 +1,7 @@
 package org.molkky.entities;
 
+import org.hibernate.engine.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;

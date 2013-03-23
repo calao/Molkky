@@ -76,6 +76,16 @@ public class EquipeEntity implements java.io.Serializable {
         this.idPartie = idPartie;
     }
 
+    public EquipeEntity() {
+    }
+
+    public EquipeEntity(int numeroEquipe, int idMembre1, int idMembre2, int idPartie) {
+        this.numeroEquipe = numeroEquipe;
+        this.idMembre1 = idMembre1;
+        this.idMembre2 = idMembre2;
+        this.idPartie = idPartie;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

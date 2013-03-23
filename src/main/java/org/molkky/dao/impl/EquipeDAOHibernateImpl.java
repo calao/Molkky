@@ -10,6 +10,8 @@ import org.molkky.entities.EquipeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: darksidious
@@ -33,5 +35,20 @@ public class EquipeDAOHibernateImpl extends AbstractDAOHibernateImpl<EquipeEntit
         criteria.add(Restrictions.eq("idPartie",idPartie));
         Integer maxVal = (Integer) criteria.uniqueResult();
         return  maxVal!=null ? maxVal : 0;
+    }
+
+    public boolean checkNumber(Integer idPartie, Integer num) {
+        Criteria criteria = getSession().createCriteria(EquipeEntity.class);
+        criteria.add(Restrictions.eq("numeroEquipe", num));
+        criteria.add(Restrictions.eq("idPartie",idPartie));
+
+        return criteria.list().size()>0 ;
+    }
+
+    public List<EquipeEntity> findAllByPartie(Integer idPartie) {
+        Criteria criteria = getSession().createCriteria(EquipeEntity.class);
+        criteria.add(Restrictions.eq("idPartie",idPartie));
+
+        return criteria.list() ;
     }
 }

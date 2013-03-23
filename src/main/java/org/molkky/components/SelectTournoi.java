@@ -34,11 +34,11 @@ public class SelectTournoi {
     @Inject
     SelectModelFactory selectModelFactory;
 
-    @SessionState
+    @SessionState(create = false)
     @Property
     private TournoiEntity selectedTournoi;
 
-    @SessionState
+    @SessionState(create = false)
     @Property
     private PartieEntity selectedPartie;
 
@@ -62,13 +62,13 @@ public class SelectTournoi {
     void setupRender() {
 
         tournois = tournoiDAO.findAll();
-        if (!selectedTournoiExists)
+        if (!selectedTournoiExists || selectedTournoi == null)
             selectedTournoi = tournoiDAO.findLast();
 
         if (tournois.size() != 0) {
             tournoiSelectModel = selectModelFactory.create(tournois, "label");
 
-            if (selectedTournoiExists)
+            if (selectedTournoiExists && selectedTournoi != null)
             {if (selectedTournoi != null)
                 { parties = partieDAO.findAllByTournoi(selectedTournoi.getIdTournoi());
                   if(!selectedPartieExists || selectedPartie==null || !parties.contains(selectedPartie))

@@ -1,6 +1,9 @@
 package org.molkky.dao;
 
+import org.apache.commons.collections.iterators.ListIteratorWrapper;
 import org.molkky.entities.EquipeEntity;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,4 +16,7 @@ import org.molkky.entities.EquipeEntity;
 public interface EquipeDAO extends AbstractDAO<EquipeEntity, Integer> {
 
     Integer getMaxNumberByPartie(Integer idPartie);
+    boolean checkNumber(Integer idPartie, Integer num);
+    List<EquipeEntity> findAllByPartie(Integer idPartie);
+
 }

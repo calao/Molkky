@@ -132,4 +132,9 @@ public class MembreEntity implements java.io.Serializable  {
     public String getLabel(){
         return prenom + " " + nom + " " + (pseudonyme == null ? "" : "("+pseudonyme+")");
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(idMembre);
+    }
 }
