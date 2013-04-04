@@ -48,17 +48,20 @@
 
     <t:jquery.datatable t:model="equipeModel" t:source="equipesList" t:row="currentEquipe">
         <p:membre1Cell>
-            ${membre1Label}
+            ${currentEquipe.membre1.label}
         </p:membre1Cell>
         <p:membre2Cell>
-            ${membre2Label}
+            ${currentEquipe.membre2.label}
         </p:membre2Cell>
         <p:deleteCell>
          <t:actionlink t:id="delete" id="delete" context="currentEquipe.idEquipe">${message:delete}</t:actionlink>
         </p:deleteCell>
     </t:jquery.datatable>
     <br/>
+
+    <!--<t:jquery.dialogAjaxLink t:id="randomize" t:dialog="addMembreFormDialog">Ajouter un membre</t:jquery.dialoglink>-->
 </t:zone>
+
 
 
 <p:sidebar>

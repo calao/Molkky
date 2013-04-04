@@ -109,21 +109,18 @@ public class Equipe {
 
         if (selectedMembre1 == null || selectedMembre2 == null) {
             addEquipeForm.recordError(messages.get("noMembre"));
-        }
+        } else
+            if(selectedMembre1 == selectedMembre2)
+            {
+                addEquipeForm.recordError(messages.get("membreEquals"));
+            }
 
 
     }
 
     void onSuccessFromAddEquipeForm() {
+
         equipeDAO.save(new EquipeEntity(numeroEquipe, selectedMembre1, selectedMembre2, selectedPartie.getIdPartie()));
-    }
-
-    public String getMembre1Label() {
-        return membreDAO.findById(currentEquipe.getIdMembre1()).getLabel();
-    }
-
-    public String getMembre2Label() {
-        return membreDAO.findById(currentEquipe.getIdMembre2()).getLabel();
     }
 
     void onActionFromDelete(int id) {

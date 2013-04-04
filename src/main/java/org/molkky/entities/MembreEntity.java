@@ -1,10 +1,10 @@
 package org.molkky.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
+import java.nio.MappedByteBuffer;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -136,5 +136,26 @@ public class MembreEntity implements java.io.Serializable  {
     @Override
     public String toString() {
         return String.valueOf(idMembre);
+    }
+
+    public List<EquipeEntity> equipes;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "membre1")
+    public List<EquipeEntity> getEquipes (){
+        return equipes;
+    }
+
+    public void setEquipes(List<EquipeEntity> equipes) {
+        this.equipes = equipes;
+    }
+
+    public List<EquipeEntity> equipes2;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "membre2")
+    public List<EquipeEntity> getEquipes2 (){
+        return equipes2;
+    }
+
+    public void setEquipes2(List<EquipeEntity> equipes2) {
+        this.equipes2 = equipes2;
     }
 }
