@@ -6,7 +6,7 @@
 
     <legend>${message:addEquipe}</legend>
     <t:form t:id="addEquipeForm" class="equipeForm">
-        <t:errors />
+        <t:errors/>
         <table>
             <tr>
                 <td class="center">
@@ -26,11 +26,11 @@
                 </td>
                 <td class="center">
                     <t:select t:id="membre1" blankOption="never" t:value="selectedMembre1" t:model="membreSelectModel"
-                              />
+                            />
                 </td>
                 <td class="center">
                     <t:select t:id="membre2" blankOption="never" t:value="selectedMembre2" t:model="membreSelectModel"
-                              />
+                            />
                 </td>
                 <td class="center">
                     <t:submit value="${message:submit}"/>
@@ -39,7 +39,7 @@
         </table>
 
     </t:form>
-    <br />
+    <br/>
 </fieldset>
 
 <br/>
@@ -54,14 +54,38 @@
             ${currentEquipe.membre2.label}
         </p:membre2Cell>
         <p:deleteCell>
-         <t:actionlink t:id="delete" id="delete" context="currentEquipe.idEquipe">${message:delete}</t:actionlink>
+            <t:actionlink t:id="delete" id="delete" context="currentEquipe.idEquipe">${message:delete}</t:actionlink>
         </p:deleteCell>
     </t:jquery.datatable>
     <br/>
 
-    <!--<t:jquery.dialogAjaxLink t:id="randomize" t:dialog="addMembreFormDialog">Ajouter un membre</t:jquery.dialoglink>-->
+    <form t:id="paramRandomForm">
+      <t:label for="numOfTerrain"/>  <t:textfield t:id="numOfTerrain" value="numOfTerrain" onkeyup="submit()"/>
+    </form>
+    <t:jquery.dialogAjaxLink t:id="randomize" id="randomize" t:zone="randomListZone" t:dialog="randomizeEquipe">Générer
+        grille
+        alléatoire
+    </t:jquery.dialogAjaxLink>
 </t:zone>
 
+
+<t:jquery.dialog t:clientId="randomizeEquipe" params="params">
+
+    <t:zone t:id="randomListZone" id="randomListZone">
+        <t:loop source="randomTerrainsList" index="index" value="randomEquipeList">
+            Terrain ${index}
+            <t:grid source="randomEquipeList" row="currentEquipe" model="equipeRandomModel">
+                <p:membre1Cell>
+                    ${currentEquipe.membre1.label}
+                </p:membre1Cell>
+                <p:membre2Cell>
+                    ${currentEquipe.membre2.label}
+                </p:membre2Cell>
+            </t:grid>
+            <br />
+        </t:loop>
+    </t:zone>
+</t:jquery.dialog>
 
 
 <p:sidebar>

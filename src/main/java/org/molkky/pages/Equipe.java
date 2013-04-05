@@ -1,15 +1,14 @@
 package org.molkky.pages;
 
 import org.apache.tapestry5.SelectModel;
-import org.apache.tapestry5.ValueEncoder;
-import org.apache.tapestry5.annotations.Component;
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.beaneditor.BeanModel;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.Select;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.BeanModelSource;
 import org.apache.tapestry5.services.SelectModelFactory;
 import org.molkky.dao.EquipeDAO;
@@ -30,6 +29,8 @@ import java.util.List;
  */
 public class Equipe {
 
+    private int index;
+
     @Property
     private Integer numeroEquipe = 1;
 
@@ -43,9 +44,15 @@ public class Equipe {
     private List<MembreEntity> membres = new ArrayList<MembreEntity>();
 
     @Property
+    @Persist
     private BeanModel<EquipeEntity> equipeModel;
 
     @Property
+    @Persist
+    private BeanModel<EquipeEntity> equipeRandomModel;
+
+    @Property
+    @Persist
     private SelectModel membreSelectModel;
 
     @Inject
@@ -66,11 +73,25 @@ public class Equipe {
     @Inject
     private EquipeDAO equipeDAO;
 
+    @Persist
+    @Property
+    private int numOfTerrain;
+
+    @InjectComponent
+    private Zone randomListZone, zone;
+
     @Property
     private List<EquipeEntity> equipesList;
 
     @Component
-    private Form addEquipeForm;
+    private Form addEquipeForm, paramRandomForm;
+
+    @Property
+    @Persist
+    private List<List<EquipeEntity>> randomTerrainsList;
+
+    @Property
+    private List<EquipeEntity> randomEquipeList;
 
     @SessionState(create = false)
     @Property
@@ -86,13 +107,23 @@ public class Equipe {
             equipesList = equipeDAO.findAllByPartie(selectedPartie.getIdPartie());
         }
 
+
         membreSelectModel = selectModelFactory.create(membres, "label");
+
 
         equipeModel = beanModelSource.createDisplayModel(EquipeEntity.class, messages);
         equipeModel.add("membre1", null);
         equipeModel.add("membre2", null);
         equipeModel.add("delete", null);
         equipeModel.include("numeroEquipe", "membre1", "membre2", "delete");
+
+
+        equipeRandomModel = beanModelSource.createDisplayModel(EquipeEntity.class, messages);
+        equipeRandomModel.add("membre1", null).sortable(true);
+        equipeRandomModel.add("membre2", null).sortable(true);
+
+        equipeRandomModel.include("numeroEquipe", "membre1", "membre2");
+
     }
 
     void onValidateFromAddEquipeForm() {
@@ -109,18 +140,65 @@ public class Equipe {
 
         if (selectedMembre1 == null || selectedMembre2 == null) {
             addEquipeForm.recordError(messages.get("noMembre"));
-        } else
-            if(selectedMembre1 == selectedMembre2)
-            {
-                addEquipeForm.recordError(messages.get("membreEquals"));
-            }
+        } else if (selectedMembre1 == selectedMembre2) {
+            addEquipeForm.recordError(messages.get("membreEquals"));
+        }
 
+
+    }
+
+    Object onActionFromRandomize() {
+
+        if (numOfTerrain > 0) {
+            List<EquipeEntity> equipesList2 = equipeDAO.findAllByPartie(selectedPartie.getIdPartie());
+            int sizeOfList = (equipesList2.size() / numOfTerrain);
+
+            int lower = 0;
+            int higher = equipesList2.size();
+            randomTerrainsList = new ArrayList<List<EquipeEntity>>();
+            int i = 0;
+            while (i < numOfTerrain) {
+                List<EquipeEntity> group = new ArrayList<EquipeEntity>();
+
+                randomTerrainsList.add(group);
+                i++;
+            }
+            int indexOfList = 0;
+            while (true) {
+
+                int random = (int) (Math.random() * (higher - lower)) + lower;
+                if (equipesList2.size() > 0) {
+                    randomTerrainsList.get(indexOfList).add(equipesList2.get(random));
+                    equipesList2.remove(random);
+                    higher = equipesList2.size();
+
+                } else {
+                    break;
+                }
+                indexOfList++;
+                if (indexOfList == numOfTerrain)
+                    indexOfList = 0;
+            }
+        } else {
+            randomTerrainsList = new ArrayList<List<EquipeEntity>>();
+        }
+
+        return randomListZone;
 
     }
 
     void onSuccessFromAddEquipeForm() {
 
         equipeDAO.save(new EquipeEntity(numeroEquipe, selectedMembre1, selectedMembre2, selectedPartie.getIdPartie()));
+
+
+    }
+
+    public JSONObject getParams() {
+        JSONObject options = new JSONObject();
+        options.put("title", "Groupe");
+        options.put("width", 700);
+        return options;
     }
 
     void onActionFromDelete(int id) {
@@ -129,4 +207,11 @@ public class Equipe {
         equipeDAO.delete(equipe);
     }
 
+    public int getIndex() {
+        return index+1;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
 }
