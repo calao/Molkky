@@ -2,6 +2,7 @@ package org.molkky.dao;
 
 import org.apache.commons.collections.iterators.ListIteratorWrapper;
 import org.molkky.entities.EquipeEntity;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * Time: 5:42 PM
  * To change this template use File | Settings | File Templates.
  */
-
+@Transactional
 public interface EquipeDAO extends AbstractDAO<EquipeEntity, Integer> {
 
     Integer getMaxNumberByPartie(Integer idPartie);

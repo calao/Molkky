@@ -33,7 +33,7 @@
   </component>
   <component name="Loomy">
     <option name="newPagesClassesSourceDirectory" value="$MODULE_DIR$/src/main/java" />
-    <option name="newPagesTemplatesSourceDirectory" value="$MODULE_DIR$/src/main/java" />
+    <option name="newPagesTemplatesSourceDirectory" value="$MODULE_DIR$/src/main/resources" />
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />

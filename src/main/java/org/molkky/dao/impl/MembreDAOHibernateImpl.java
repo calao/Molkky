@@ -11,6 +11,7 @@ import org.molkky.entities.MembreEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,5 +45,45 @@ public class MembreDAOHibernateImpl extends AbstractDAOHibernateImpl<MembreEntit
 
 
         return criteria.list();  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public List<MembreEntity> getAllWithoutEquipeByPartieAndNotAlreadySelected(int idPartie, int selectedMember) {
+        Criteria criteria = getSession().createCriteria(EquipeEntity.class);
+        criteria.setProjection(Projections.property("idMembre1"));
+        List<Integer> listMemberId = criteria.add(Restrictions.eq("idPartie", idPartie)).list();
+
+        criteria = getSession().createCriteria(EquipeEntity.class);
+        criteria.setProjection(Projections.property("idMembre2"));
+        listMemberId.addAll(criteria.add(Restrictions.eq("idPartie", idPartie)).list());
+
+        criteria = getSession().createCriteria(MembreEntity.class);
+        if(listMemberId!=null && listMemberId.size()>0)
+            criteria.add(Restrictions.not(Restrictions.in("idMembre", listMemberId)));
+
+        criteria.add(Restrictions.not(Restrictions.eq("idMembre", selectedMember)));
+
+        return criteria.list();  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public List<MembreEntity> getAllByPartie(int idPartie) {
+        Criteria criteria = getSession().createCriteria(EquipeEntity.class);
+        criteria.setProjection(Projections.property("idMembre1"));
+        List<Integer> listMemberId = criteria.add(Restrictions.eq("idPartie", idPartie)).list();
+
+        criteria = getSession().createCriteria(EquipeEntity.class);
+        criteria.setProjection(Projections.property("idMembre2"));
+        listMemberId.addAll(criteria.add(Restrictions.eq("idPartie", idPartie)).list());
+
+        List<MembreEntity> list = new ArrayList<MembreEntity>();
+
+        if(listMemberId!=null && listMemberId.size()>0)
+        {   criteria = getSession().createCriteria(MembreEntity.class);
+            criteria.add(Restrictions.in("idMembre", listMemberId));
+        list = criteria.list();
+        }
+
+
+        return list ;  //To change body of implemented methods use File | Settings | File Templates.
+
     }
 }

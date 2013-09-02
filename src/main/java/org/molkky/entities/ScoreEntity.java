@@ -3,6 +3,7 @@ package org.molkky.entities;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 /**
  * Created with IntelliJ IDEA.

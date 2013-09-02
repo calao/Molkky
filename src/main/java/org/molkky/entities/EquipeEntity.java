@@ -53,7 +53,7 @@ public class EquipeEntity implements java.io.Serializable {
 
     public MembreEntity membre1;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idMembre1",  insertable = false, updatable = false )
     public MembreEntity getMembre1(){
         return membre1;
@@ -75,7 +75,7 @@ public class EquipeEntity implements java.io.Serializable {
     }
 
     public MembreEntity membre2;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idMembre2", insertable = false, updatable = false)
     public MembreEntity getMembre2(){
         return membre2;

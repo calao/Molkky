@@ -30,14 +30,16 @@ public class Membre {
     @Property
     private BeanModel<MembreEntity> membreModel;
 
+    @Inject
+    private BeanModelSource beanModelSource;
+
     @Property
     private MembreEntity currentMembre;
 
     @Property
     private List<MembreEntity> membresList;
 
-    @Inject
-    private BeanModelSource beanModelSource;
+
 
     @Property
     private Form addMembreForm;

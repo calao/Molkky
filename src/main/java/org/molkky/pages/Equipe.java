@@ -31,17 +31,27 @@ public class Equipe {
 
     private int index;
 
+    @Persist
     @Property
-    private Integer numeroEquipe = 1;
+    private Integer numeroEquipe;
 
     @Property
     private Select membre1, membre2;
 
+    @Persist
     @Property
-    private Integer selectedMembre1, selectedMembre2;
+    private Integer selectedMembre1;
 
     @Property
-    private List<MembreEntity> membres = new ArrayList<MembreEntity>();
+    private Integer selectedMembre2;
+
+    @Persist
+    @Property
+    private List<MembreEntity> membres1;
+
+    @Persist
+    @Property
+    private List<MembreEntity> membres2;
 
     @Property
     @Persist
@@ -53,7 +63,11 @@ public class Equipe {
 
     @Property
     @Persist
-    private SelectModel membreSelectModel;
+    private SelectModel membre1SelectModel;
+
+    @Property
+    @Persist
+    private SelectModel membre2SelectModel;
 
     @Inject
     private SelectModelFactory selectModelFactory;
@@ -78,7 +92,7 @@ public class Equipe {
     private int numOfTerrain;
 
     @InjectComponent
-    private Zone randomListZone, zone;
+    private Zone randomListZone, zone, membre2Zone;
 
     @Property
     private List<EquipeEntity> equipesList;
@@ -101,15 +115,19 @@ public class Equipe {
 
     void setupRender() {
 
+        membres1 = new ArrayList<MembreEntity>();
+        membres2 = new ArrayList<MembreEntity>();
+
         if (selectedPartieExists && selectedPartie != null) {
             numeroEquipe = equipeDAO.getMaxNumberByPartie(selectedPartie.getIdPartie()) + 1;
-            membres = membreDAO.getAllWithoutEquipeByPartie(selectedPartie.getIdPartie());
+            membres1 = membreDAO.getAllWithoutEquipeByPartie(selectedPartie.getIdPartie());
             equipesList = equipeDAO.findAllByPartie(selectedPartie.getIdPartie());
         }
 
 
-        membreSelectModel = selectModelFactory.create(membres, "label");
+        membre1SelectModel = selectModelFactory.create(membres1, "label");
 
+        membre2SelectModel = selectModelFactory.create(membres2, "label");
 
         equipeModel = beanModelSource.createDisplayModel(EquipeEntity.class, messages);
         equipeModel.add("membre1", null);
@@ -145,6 +163,16 @@ public class Equipe {
         }
 
 
+    }
+
+    Object onValueChangedFromMembre1(Integer selectedMembre1) {
+        if (selectedMembre1 != null) {
+            membres2 = membreDAO.getAllWithoutEquipeByPartieAndNotAlreadySelected(selectedPartie.getIdPartie(), selectedMembre1);
+        } else {
+            membres2 = new ArrayList<MembreEntity>();
+        }
+        membre2SelectModel = selectModelFactory.create(membres2, "label");
+        return membre2Zone;
     }
 
     Object onActionFromRandomize() {
@@ -208,7 +236,7 @@ public class Equipe {
     }
 
     public int getIndex() {
-        return index+1;
+        return index + 1;
     }
 
     public void setIndex(int index) {
