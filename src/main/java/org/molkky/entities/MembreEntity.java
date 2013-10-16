@@ -158,54 +158,5 @@ public class MembreEntity implements java.io.Serializable  {
     public void setEquipes2(List<EquipeEntity> equipes2) {
         this.equipes2 = equipes2;
     }
-
-    @Transient
-    public int scorePartie1;
-
-    @Transient
-    public int getScorePartie1() {
-        return scorePartie1;
-    }
-
-    public void setScorePartie1(int scorePartie1) {
-        this.scorePartie1 = scorePartie1;
-    }
-
-    @Transient
-    public int scorePartie2;
-
-    @Transient
-    public int getScorePartie2() {
-        return scorePartie2;
-    }
-
-    public void setScorePartie2(int scorePartie2) {
-        this.scorePartie2 = scorePartie2;
-    }
-
-    @Transient
-    public int scorePartie3;
-
-    @Transient
-    public int getScorePartie3() {
-        return scorePartie3;
-    }
-
-    public void setScorePartie3(int scorePartie3) {
-        this.scorePartie3 = scorePartie3;
-    }
-
-    @Transient
-    public int scorePartie4;
-
-    @Transient
-    public int getScorePartie4() {
-        return scorePartie4;
-    }
-
-    public void setScorePartie4(int scorePartie4) {
-        this.scorePartie4 = scorePartie4;
-    }
-
 }
 

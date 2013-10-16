@@ -1,10 +1,8 @@
 package org.molkky.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,6 +15,7 @@ import java.util.Date;
 @Entity
 public class PartieEntity implements java.io.Serializable  {
     private int idPartie;
+    private Set<ScoreEntity> scores;
 
     @javax.persistence.Column(name = "idPartie")
     @Id
@@ -64,6 +63,8 @@ public class PartieEntity implements java.io.Serializable  {
         this.idTournoi = idTournoi;
     }
 
+
+
     public PartieEntity() {
     }
 
@@ -71,6 +72,15 @@ public class PartieEntity implements java.io.Serializable  {
         this.date = date;
         this.lieu = lieu;
         this.idTournoi = idTournoi;
+    }
+
+    @OneToMany(mappedBy = "partie")
+    public Set<ScoreEntity> getScores() {
+        return scores;
+    }
+
+    public void setScores(Set<ScoreEntity> scores) {
+        this.scores = scores;
     }
 
     @Override

@@ -9,7 +9,7 @@ import javax.persistence.*;
  * Time: 6:01 PM
  * To change this template use File | Settings | File Templates.
  */
-@javax.persistence.Table(name = "Equipes", schema = "", catalog = "MolkkyDB")
+@Table(name = "Equipes", schema = "", catalog = "MolkkyDB")
 @Entity
 public class EquipeEntity implements java.io.Serializable {
 
@@ -17,7 +17,7 @@ public class EquipeEntity implements java.io.Serializable {
 
     private int idEquipe;
 
-    @javax.persistence.Column(name = "idEquipe")
+    @Column(name = "idEquipe")
     @Id
     public int getIdEquipe() {
         return idEquipe;
@@ -29,7 +29,7 @@ public class EquipeEntity implements java.io.Serializable {
 
     private int numeroEquipe;
 
-    @javax.persistence.Column(name = "numero_equipe")
+    @Column(name = "numero_equipe")
     @Basic
     public int getNumeroEquipe() {
         return numeroEquipe;
@@ -42,7 +42,7 @@ public class EquipeEntity implements java.io.Serializable {
 
     public int idMembre1;
 
-    @javax.persistence.Column(name="idMembre1")
+    @Column(name="idMembre1")
     public int getIdMembre1() {
         return idMembre1;
     }
@@ -65,7 +65,7 @@ public class EquipeEntity implements java.io.Serializable {
 
     public int idMembre2;
 
-    @javax.persistence.Column(name="idMembre2")
+    @Column(name="idMembre2")
     public int getIdMembre2() {
         return idMembre2;
     }

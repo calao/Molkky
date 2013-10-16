@@ -2,27 +2,32 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-<t:zone t:id="zone">
-    <form t:id="encodeScoreForm">
-        <t:zone t:id="zoneData">
-    <t:jquery.datatable t:model="membreModel" t:source="membresList" t:row="currentMembre">
+    <t:grid source="membresList" row="currentMembre" model="membreModel" t:inplace="true"
+            rowIndex="currentIndex" rowsPerPage="10">
         <p:partie1Cell>
-            <input t:type="textfield" style="display:none" t:id="idMembre" id="idMembre" value="idMembre"></input>
-            <t:textfield t:id="scorePartie1" context="${currentMembre.idMembre}" value="scorePartie1"></t:textfield>
+            <div t:id="scorePartie1" t:type="jquery/inPlaceEditor"
+                 value="scorePartie1" t:context="${currentMembre.idMembre}" t:options="optionsJSON"/>
         </p:partie1Cell>
         <p:partie2Cell>
-            <t:textfield t:id="scorePartie2" context="${currentMembre.idMembre}" value="scorePartie2"></t:textfield>
+            <div t:id="scorePartie2" t:type="jquery/inPlaceEditor"
+                 value="scorePartie2" t:context="${currentMembre.idMembre}" t:options="optionsJSON"/>
         </p:partie2Cell>
         <p:partie3Cell>
-            <t:textfield t:id="scorePartie3" context="${currentMembre.idMembre}" value="scorePartie3"></t:textfield>
+            <div t:id="scorePartie3" t:type="jquery/inPlaceEditor"
+                 value="scorePartie3" t:context="${currentMembre.idMembre}" t:options="optionsJSON"/>
         </p:partie3Cell>
         <p:partie4Cell>
-            <t:textfield t:id="scorePartie4" context="${currentMembre.idMembre}" value="scorePartie4"></t:textfield>
+            <div t:id="scorePartie4" t:type="jquery/inPlaceEditor"
+                 value="scorePartie4" t:context="${currentMembre.idMembre}" t:options="optionsJSON"/>
         </p:partie4Cell>
-    </t:jquery.datatable>
-        </t:zone>
-        <t:submit></t:submit>
-    </form>
-</t:zone>
+    </t:grid>
+
+    <t:zone t:id="updateZone" id="updateZone" visible="false">
+        <div>
+            Last in place editor update is related to <br/>
+
+        </div>
+    </t:zone>
+
 
 </html>

@@ -30,6 +30,13 @@
         </fileset>
       </configuration>
     </facet>
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="" />
+        <datasource-mapping />
+      </configuration>
+    </facet>
   </component>
   <component name="Loomy">
     <option name="newPagesClassesSourceDirectory" value="$MODULE_DIR$/src/main/java" />

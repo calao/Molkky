@@ -18,6 +18,11 @@ form {
     padding: 0;
 }
 
+.number
+{
+    width: 30px;
+}
+
 input {
     padding: 5px;
     background: #FEFEFE url(images/img13.gif) repeat-x;
