@@ -237,12 +237,12 @@ public class Equipe {
 
     void onActionFromDelete(int id) {
         EquipeEntity equipe = equipeDAO.findById(id);
-//        try{
+        try{
         equipeDAO.delete(equipe);
-//        }catch(Exception e){
-//            alertManager.alert(Duration.SINGLE, Severity.ERROR, "Vous ne pouvez pas supprimer cette equipe une erreur est survenue.");
-//
-//        }
+        }catch(Exception e){
+            alertManager.alert(Duration.SINGLE, Severity.ERROR, "Vous ne pouvez pas supprimer cette equipe une erreur est survenue.");
+
+        }
     }
 
     public int getIndex() {
