@@ -159,6 +159,33 @@ CREATE  TABLE IF NOT EXISTS `MolkkyDB`.`groups_lien_Equipes` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Placeholder table for view `MolkkyDB`.`ScoresPartiesview`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `MolkkyDB`.`ScoresPartiesview` (`score` INT, `idMember` INT, `idPartie` INT, `idTournoi` INT, `prenom` INT, `nom` INT);
+
+-- -----------------------------------------------------
+-- Placeholder table for view `MolkkyDB`.`ScoresTournoiview`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `MolkkyDB`.`ScoresTournoiview` (`score` INT, `idMember` INT, `idPartie` INT, `idTournoi` INT, `prenom` INT, `nom` INT);
+
+-- -----------------------------------------------------
+-- View `MolkkyDB`.`ScoresPartiesview`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `MolkkyDB`.`ScoresPartiesview` ;
+DROP TABLE IF EXISTS `MolkkyDB`.`ScoresPartiesview`;
+USE `MolkkyDB`;
+CREATE  OR REPLACE VIEW `ScoresPartiesview` AS select sum(s.score) AS `score`, s.idMember AS `idMember`, s.idPartie AS `idPartie`, p.idTournoi AS `idTournoi`, m.prenom AS `prenom`, m.nom AS `nom` from `Scores` s, `Members` m, `Parties` p where s.idPartie = p.idPartie and s.idMember = m.idMember group by `s`.`idPartie`,`s`.`idMember`;
+
+-- -----------------------------------------------------
+-- View `MolkkyDB`.`ScoresTournoiview`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `MolkkyDB`.`ScoresTournoiview` ;
+DROP TABLE IF EXISTS `MolkkyDB`.`ScoresTournoiview`;
+USE `MolkkyDB`;
+create  OR REPLACE view MolkkyDB.ScoresTournoiview as select sum(score) as score, idMember, idPartie, idTournoi, prenom, nom from MolkkyDB.ScoresPartiesview group by idMember, idTournoi
+;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
