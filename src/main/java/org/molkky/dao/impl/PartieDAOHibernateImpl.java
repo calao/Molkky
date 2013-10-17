@@ -38,6 +38,7 @@ public class PartieDAOHibernateImpl extends AbstractDAOHibernateImpl<PartieEntit
 
     public PartieEntity findLastByTournoi(int idTournoi) {
         Criteria criteria = getSession().createCriteria(getDomainClass());
+        criteria.add(Restrictions.eq("idTournoi", idTournoi));
         Date date = (Date) criteria.setProjection(Projections.max("date")).uniqueResult();
         criteria = getSession().createCriteria(getDomainClass());
         criteria.add(Restrictions.eq("date", date));

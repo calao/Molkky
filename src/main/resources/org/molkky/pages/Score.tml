@@ -3,7 +3,7 @@
       xmlns:p="tapestry:parameter">
 
     <t:grid source="membresList" row="currentMembre" model="membreModel" t:inplace="true"
-            rowIndex="currentIndex" rowsPerPage="10">
+            rowIndex="currentIndex" rowsPerPage="40">
         <p:partie1Cell>
             <div t:id="scorePartie1" t:type="jquery/inPlaceEditor"
                  value="scorePartie1" t:context="${currentMembre.idMembre}" t:options="optionsJSON"/>

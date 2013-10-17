@@ -1,0 +1,26 @@
+<html t:type="layout" title="Classement"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+    <t:zone t:id="classementZone">
+    <t:if test="classementParPartie">
+    <t:actionlink t:id="classementParTournoi" t:zone="classementZone">Classement par tournoi</t:actionlink>
+    <t:jquery.datatable t:source="membresList" t:row="currentMembre" t:model="membreModel"
+            t:rowIndex="currentIndex" t:rowsPerPage="40">
+        <p:placeCell>
+            ${currentIndex}
+        </p:placeCell>
+    </t:jquery.datatable>
+    <p:else>
+        <t:actionlink t:id="classementParPartie" t:zone="classementZone">Classement par partie</t:actionlink>
+        <t:jquery.datatable t:source="membresTournoiList" t:row="currentMembreTournoi" t:model="membreTournoiModel"
+                            t:rowIndex="currentIndexTournoi" t:rowsPerPage="40">
+            <p:placeCell>
+                ${currentIndexTournoi}
+            </p:placeCell>
+        </t:jquery.datatable>
+    </p:else>
+    </t:if>
+    </t:zone>
+
+
+</html>

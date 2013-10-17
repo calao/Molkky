@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd"
              xmlns:p="tapestry:parameter">
+    <t:zone t:id="selectTournoiZone">
     <t:if test="isTournoi()">
-        <form t:id="selectTournoiForm">
+        <t:form t:id="selectTournoiForm" zone="selectedTournoiZone">
             <t:label class="labelTournoi" for="tournoiSelection">${message:selectTournoi}</t:label>
             <br/>
             <t:select class="selectComponent" t:id="tournoiSelection" blankOption="never" t:value="selectedTournoi"
-                      t:model="tournoiSelectModel" onChange="submit()"/>
-        </form>
+                      t:model="tournoiSelectModel" zone="selectTournoiZone"/>
+        </t:form>
 
         <t:if test="isPartie()">
-            <form t:id="selectPartieForm">
+            <t:form t:id="selectPartieForm" t:zone="selectedTournoiZone">
                 <t:label class="labelTournoi" for="partieSelection">${message:selectPartie}</t:label>
                 <br/>
                 <t:select class="selectComponent" t:id="partieSelection" blankOption="never" t:value="selectedPartie"
-                          t:model="partieSelectModel" onChange="submit()"/>
-            </form>
+                          t:model="partieSelectModel" zone="selectTournoiZone"/>
+            </t:form>
 
             <p:else>
                 <p t:type ="textoutput" class="warning" t:value="${message:noPartie}"/>
@@ -26,5 +27,5 @@
             <p t:type ="textoutput" class="warning" t:value="${message:noTournoi}"/>
         </p:else>
     </t:if>
-
+    </t:zone>
 </t:container>

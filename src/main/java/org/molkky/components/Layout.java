@@ -53,6 +53,6 @@ public class Layout {
     }
 
     public String[] getPageNames() {
-        return new String[]{"Membre", "Tournoi", "Partie","Equipe", "Score"};
+        return new String[]{"Membre", "Tournoi", "Partie","Equipe", "Score", "Classement"};
     }
 }

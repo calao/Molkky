@@ -88,10 +88,11 @@ public class Score {
     private int getScoreManche(int manche)
     {
         ScoreEntity score = scoreDAO.getScoreByMancheAndMemberAndPartie(manche, currentMembre.getIdMembre(), selectedPartie.getIdPartie());
-
         if (score == null)
-            return 0;
-
+        { score = new ScoreEntity(manche, currentMembre.getIdMembre(), selectedPartie.getIdPartie(), 0);
+          scoreDAO.save(score);
+          return score.getScore();
+        }
         return score.getScore();
     }
 
