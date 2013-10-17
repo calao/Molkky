@@ -1,6 +1,9 @@
 package org.molkky.pages;
 
 import org.apache.tapestry5.EventConstants;
+import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.alerts.Duration;
+import org.apache.tapestry5.alerts.Severity;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Property;
@@ -69,10 +72,17 @@ public class Tournoi {
         tournoiModel.include("nom", "debut","fin", "delete");
         tournoisList = tournoiDAO.findAll();
     }
-
+    @Inject
+    private AlertManager alertManager;
     void onActionFromDelete(int id)
     {
+       try{
        tournoiDAO.delete(tournoiDAO.findById(id));
+       }catch (Exception e)
+       {
+           alertManager.alert(Duration.SINGLE, Severity.ERROR, "Vous ne pouvez pas supprimer un Tournoi pour laquelle vous avez déjà encodé des parties");
+
+       }
     }
     public JSONObject getParams() {
         JSONObject options = new JSONObject();

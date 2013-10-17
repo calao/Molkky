@@ -24,10 +24,6 @@
     <t:zone t:id="membreFormZone" class="membreFormZone" id="membreFormZone">
         <t:form t:id="addMembreForm" class="membreForm">
             <p>
-                <t:label for="pseudonyme">${message:pseudonyme}</t:label>
-                <t:textfield t:id="pseudonyme" validate="maxlength=30" value="pseudonyme"/>
-            </p>
-            <p>
                 <t:label for="prenom">${message:prenom}</t:label>
                 <t:textfield t:id="prenom" validate="required, maxlength=30" value="prenom"/>
             </p>

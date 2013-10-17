@@ -1,6 +1,9 @@
 package org.molkky.pages;
 
 import org.apache.tapestry5.SelectModel;
+import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.alerts.Duration;
+import org.apache.tapestry5.alerts.Severity;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.beaneditor.BeanModel;
 import org.apache.tapestry5.corelib.components.Form;
@@ -229,10 +232,17 @@ public class Equipe {
         return options;
     }
 
+    @Inject
+    private AlertManager alertManager;
+
     void onActionFromDelete(int id) {
-        EquipeEntity equipe = new EquipeEntity();
-        equipe.setIdEquipe(id);
+        EquipeEntity equipe = equipeDAO.findById(id);
+//        try{
         equipeDAO.delete(equipe);
+//        }catch(Exception e){
+//            alertManager.alert(Duration.SINGLE, Severity.ERROR, "Vous ne pouvez pas supprimer cette equipe une erreur est survenue.");
+//
+//        }
     }
 
     public int getIndex() {

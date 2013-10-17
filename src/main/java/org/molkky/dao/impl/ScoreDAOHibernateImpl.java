@@ -7,6 +7,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.molkky.dao.ScoreDAO;
+import org.molkky.entities.EquipeEntity;
 import org.molkky.entities.ScoreEntity;
 import org.molkky.entities.ScoresPartiesviewEntity;
 import org.molkky.entities.ScoresTournoiViewEntity;
@@ -53,5 +54,13 @@ public class ScoreDAOHibernateImpl extends AbstractDAOHibernateImpl<ScoreEntity,
         criteria.add(Restrictions.eq("id.idTournoi", tournoi));
 
         return criteria.list();  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public List<ScoreEntity> getAllScoresForEquipe(EquipeEntity equipe) {
+        Criteria criteria = getSession().createCriteria(ScoreEntity.class);
+        criteria.add(
+        Restrictions.or(Restrictions.eq("idMembre", equipe.getIdMembre1()), Restrictions.eq("idMembre", equipe.getIdMembre2())));
+        criteria.add(Restrictions.eq("idPartie", equipe.getIdPartie()));
+        return criteria.list();
     }
 }

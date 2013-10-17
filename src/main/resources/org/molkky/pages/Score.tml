@@ -2,23 +2,23 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-    <t:grid source="membresList" row="currentMembre" model="membreModel" t:inplace="true"
+    <t:grid source="membresList" class="dataTable" row="currentMembre" model="membreModel" inplace="true"
             rowIndex="currentIndex" rowsPerPage="40">
         <p:partie1Cell>
             <div t:id="scorePartie1" t:type="jquery/inPlaceEditor"
-                 value="scorePartie1" t:context="${currentMembre.idMembre}" t:options="optionsJSON"/>
+                 value="scorePartie1" t:context="${currentMembre.idMembre}" t:options="optionsJSON" />
         </p:partie1Cell>
         <p:partie2Cell>
             <div t:id="scorePartie2" t:type="jquery/inPlaceEditor"
-                 value="scorePartie2" t:context="${currentMembre.idMembre}" t:options="optionsJSON"/>
+                 value="scorePartie2" t:context="${currentMembre.idMembre}" t:options="optionsJSON" />
         </p:partie2Cell>
         <p:partie3Cell>
             <div t:id="scorePartie3" t:type="jquery/inPlaceEditor"
-                 value="scorePartie3" t:context="${currentMembre.idMembre}" t:options="optionsJSON"/>
+                 value="scorePartie3" t:context="${currentMembre.idMembre}" t:options="optionsJSON" />
         </p:partie3Cell>
         <p:partie4Cell>
             <div t:id="scorePartie4" t:type="jquery/inPlaceEditor"
-                 value="scorePartie4" t:context="${currentMembre.idMembre}" t:options="optionsJSON"/>
+                 value="scorePartie4" t:context="${currentMembre.idMembre}" t:options="optionsJSON" />
         </p:partie4Cell>
     </t:grid>
 

@@ -1,6 +1,9 @@
 package org.molkky.pages;
 
 import org.apache.tapestry5.EventConstants;
+import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.alerts.Duration;
+import org.apache.tapestry5.alerts.Severity;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Property;
@@ -54,7 +57,7 @@ public class Membre {
     private Messages messages;
 
     @Property
-    private String prenom, nom, email, pseudonyme;
+    private String prenom, nom, email;
 
     @Property
     private Date anniversaire;
@@ -63,16 +66,24 @@ public class Membre {
     @Inject
     private MembreDAO membreDAO;
 
+    @Inject
+    private AlertManager alertManager;
+
     void setupRender(){
         membreModel = beanModelSource.createDisplayModel(MembreEntity.class, messages);
         membreModel.add("delete", null);
-        membreModel.include("pseudonyme", "nom","prenom", "delete");
+        membreModel.include("nom","prenom", "delete");
         membresList = membreDAO.findAll();
     }
 
     void onActionFromDelete(int id)
     {
-        membreDAO.delete(membreDAO.findById(id));
+        try {
+         membreDAO.delete(membreDAO.findById(id));
+        }catch(Exception e) {
+         alertManager.alert(Duration.SINGLE, Severity.ERROR, "Vous ne pouvez pas supprimer un membre qui a déjà participé à un tournois");
+        }
+
     }
     public JSONObject getParams() {
         JSONObject options = new JSONObject();
@@ -83,7 +94,7 @@ public class Membre {
 
     @OnEvent(value = EventConstants.SUCCESS, component = "addMembreForm")
     void addMembre(){
-        membreDAO.save(new MembreEntity(prenom, nom, email, anniversaire, pseudonyme)) ;
+        membreDAO.save(new MembreEntity(prenom, nom, email, anniversaire)) ;
     }
 
 

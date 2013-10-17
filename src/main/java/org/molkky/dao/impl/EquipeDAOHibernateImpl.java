@@ -1,12 +1,18 @@
 package org.molkky.dao.impl;
 
 
+import com.google.common.base.Preconditions;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.molkky.dao.EquipeDAO;
+import org.molkky.dao.ScoreDAO;
 import org.molkky.entities.EquipeEntity;
+import org.molkky.entities.ScoreEntity;
+import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -22,9 +28,12 @@ import java.util.List;
 @Repository
 public class EquipeDAOHibernateImpl extends AbstractDAOHibernateImpl<EquipeEntity, Integer> implements EquipeDAO {
 
+    private ScoreDAO scoreDAO;
+
     @Autowired
-    public EquipeDAOHibernateImpl(SessionFactory sessionFactory) {
+    public EquipeDAOHibernateImpl(SessionFactory sessionFactory, ScoreDAO scoreDAO) {
         setSessionFactory(sessionFactory);
+        this.scoreDAO = scoreDAO;
     }
 
     public Integer getMaxNumberByPartie(Integer idPartie) {
@@ -51,4 +60,12 @@ public class EquipeDAOHibernateImpl extends AbstractDAOHibernateImpl<EquipeEntit
 
         return criteria.list() ;
     }
+
+    @Override
+    public void delete(EquipeEntity equipeEntity) {
+        Preconditions.checkArgument(equipeEntity != null, "persistentObject is required");
+        List<ScoreEntity> scores = scoreDAO.getAllScoresForEquipe(equipeEntity);
+        scoreDAO.deleteAll(scores);
+        super.getHibernateTemplate().delete(equipeEntity);
+    } 
 }

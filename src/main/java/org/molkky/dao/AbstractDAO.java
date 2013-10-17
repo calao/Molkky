@@ -1,5 +1,6 @@
 package org.molkky.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -38,6 +39,8 @@ public interface AbstractDAO<E, KeyType> {
      * @param persistentObject
      */
     void delete(E persistentObject);
+
+    void deleteAll(Collection<E> persistentObjects);
 
 
     /**

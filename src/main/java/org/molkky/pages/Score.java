@@ -80,7 +80,7 @@ public class Score {
             membreModel.add("partie2", null);
             membreModel.add("partie3", null);
             membreModel.add("partie4", null);
-            membreModel.include("pseudonyme", "nom", "prenom", "partie1", "partie2", "partie3", "partie4");
+            membreModel.include("nom", "prenom", "partie1", "partie2", "partie3", "partie4");
         }
 
     }
@@ -180,8 +180,6 @@ public class Score {
         System.out.println("id " + idMembre + " valeur " +value);
     }
 
-    @InjectComponent
-    private Zone updateZone;
 
     /**
      * <p>
@@ -191,9 +189,12 @@ public class Score {
     public JSONObject getOptionsJSON() {
         JSONObject params = new JSONObject();
         params.put("tooltip", "Cliquer pour éditer");
-        params.put("style", "width: 30px;");
         params.put("cancel", "Annuler");
         params.put("submit", "OK");
+        params.put("width", "20");
+        params.put("onblur","submit");
         return params;
     }
+
+
 }

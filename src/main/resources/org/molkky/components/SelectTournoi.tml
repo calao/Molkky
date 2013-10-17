@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd"
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
              xmlns:p="tapestry:parameter">
     <t:zone t:id="selectTournoiZone">
     <t:if test="isTournoi()">

@@ -1,6 +1,9 @@
 package org.molkky.pages;
 
 import org.apache.tapestry5.EventConstants;
+import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.alerts.Duration;
+import org.apache.tapestry5.alerts.Severity;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Property;
@@ -80,9 +83,16 @@ public class Partie {
 
     }
 
+    @Inject
+    private AlertManager alertManager;
     void onActionFromDelete(int id)
     {
+        try{
         partieDAO.delete(partieDAO.findById(id));
+        }catch(Exception e)
+        {
+         alertManager.alert(Duration.SINGLE, Severity.ERROR, "Vous ne pouvez pas supprimer une partie pour laquelle vous avez déjà encodé des points ou des equipes");
+        }
     }
     public JSONObject getParams() {
         JSONObject options = new JSONObject();

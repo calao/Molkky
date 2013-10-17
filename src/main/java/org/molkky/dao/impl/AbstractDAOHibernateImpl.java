@@ -7,6 +7,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -47,6 +48,11 @@ public abstract class AbstractDAOHibernateImpl<T extends Serializable, KeyType e
     public void delete(T persistentObject) {
         Preconditions.checkArgument(persistentObject != null, "persistentObject is required");
         getHibernateTemplate().delete(persistentObject);
+    }
+
+    public void deleteAll(Collection<T> persistentObjects) {
+        Preconditions.checkArgument(persistentObjects != null, "persistentObjects are required");
+        getHibernateTemplate().deleteAll(persistentObjects);
     }
 
     public T findById(KeyType id) {

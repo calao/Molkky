@@ -20,12 +20,11 @@ public class MembreEntity implements java.io.Serializable  {
     public MembreEntity() {
     }
 
-    public MembreEntity(String prenom, String nom, String email, Date anniversaire, String pseudonyme) {
+    public MembreEntity(String prenom, String nom, String email, Date anniversaire) {
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;
         this.anniversaire = anniversaire;
-        this.pseudonyme = pseudonyme;
     }
 
     private int idMembre;
@@ -88,17 +87,7 @@ public class MembreEntity implements java.io.Serializable  {
         this.anniversaire = anniversaire;
     }
 
-    private String pseudonyme;
 
-    @javax.persistence.Column(name = "pseudonyme")
-    @Basic
-    public String getPseudonyme() {
-        return pseudonyme;
-    }
-
-    public void setPseudonyme(String pseudonyme) {
-        this.pseudonyme = pseudonyme;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -112,7 +101,6 @@ public class MembreEntity implements java.io.Serializable  {
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (nom != null ? !nom.equals(that.nom) : that.nom != null) return false;
         if (prenom != null ? !prenom.equals(that.prenom) : that.prenom != null) return false;
-        if (pseudonyme != null ? !pseudonyme.equals(that.pseudonyme) : that.pseudonyme != null) return false;
 
         return true;
     }
@@ -124,13 +112,12 @@ public class MembreEntity implements java.io.Serializable  {
         result = 31 * result + (nom != null ? nom.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (anniversaire != null ? anniversaire.hashCode() : 0);
-        result = 31 * result + (pseudonyme != null ? pseudonyme.hashCode() : 0);
         return result;
     }
 
     @Transient
     public String getLabel(){
-        return prenom + " " + nom + " " + (pseudonyme == null ? "" : "("+pseudonyme+")");
+        return prenom + " " + nom;
     }
 
     @Override

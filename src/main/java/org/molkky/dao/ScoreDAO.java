@@ -1,5 +1,6 @@
 package org.molkky.dao;
 
+import org.molkky.entities.EquipeEntity;
 import org.molkky.entities.ScoreEntity;
 import org.molkky.entities.ScoresPartiesviewEntity;
 import org.molkky.entities.ScoresTournoiViewEntity;
@@ -21,4 +22,5 @@ public interface ScoreDAO extends AbstractDAO<ScoreEntity, Integer> {
     ScoreEntity getScoreByMancheAndMemberAndPartie(int manche, int idMembre, int partie);
     List<ScoresPartiesviewEntity> getClassementByPartie(int partie);
     List<ScoresTournoiViewEntity> getClassementByTournoi(int tournoi);
+    List<ScoreEntity> getAllScoresForEquipe (EquipeEntity equipe);
 }
