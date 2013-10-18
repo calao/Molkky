@@ -229,6 +229,9 @@ public class Equipe {
         JSONObject options = new JSONObject();
         options.put("title", "Groupe");
         options.put("width", 700);
+        options.put("modal", true);
+        options.put("draggable", true);
+        options.put("resizable", true);
         return options;
     }
 

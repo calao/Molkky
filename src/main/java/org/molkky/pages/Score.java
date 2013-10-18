@@ -45,7 +45,7 @@ public class Score {
     private BeanModel<MembreEntity> membreModel;
 
     @Property
-    private Integer currentIndex;
+    private Integer currentIndex = 0;
 
     @Property
     private MembreEntity currentMembre;
@@ -76,11 +76,11 @@ public class Score {
 
         if (membreModel == null) {
             membreModel = beanModelSource.createDisplayModel(MembreEntity.class, messages);
-            membreModel.add("partie1", null);
-            membreModel.add("partie2", null);
-            membreModel.add("partie3", null);
-            membreModel.add("partie4", null);
-            membreModel.include("nom", "prenom", "partie1", "partie2", "partie3", "partie4");
+            membreModel.add("manche1", null);
+            membreModel.add("manche2", null);
+            membreModel.add("manche3", null);
+            membreModel.add("manche4", null);
+            membreModel.include("nom", "prenom", "manche1", "manche2", "manche3", "manche4");
         }
 
     }
@@ -194,6 +194,15 @@ public class Score {
         params.put("width", "20");
         params.put("onblur","submit");
         return params;
+    }
+
+    public String getRowClass(){
+        if(currentIndex%2 > 0)
+        {
+         return "even";
+        }else{
+          return "odd";
+        }
     }
 
 

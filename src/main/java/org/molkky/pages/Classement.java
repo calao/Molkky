@@ -13,10 +13,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.BeanModelSource;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.molkky.dao.ScoreDAO;
-import org.molkky.entities.MembreEntity;
-import org.molkky.entities.PartieEntity;
-import org.molkky.entities.ScoresPartiesviewEntity;
-import org.molkky.entities.ScoresTournoiViewEntity;
+import org.molkky.entities.*;
 import org.molkky.services.CSVAttachement;
 
 import java.io.ByteArrayInputStream;
@@ -44,6 +41,9 @@ public class Classement {
 
     @SessionState(create = false)
     private PartieEntity selectedPartie;
+
+    @SessionState(create = false)
+    private TournoiEntity selectedTournoi;
 
     @Inject
     private ScoreDAO scoreDAO;
@@ -116,7 +116,7 @@ public class Classement {
     }
 
     public Integer getCurrentIndex() {
-        return currentIndex++;
+        return currentIndex+1;
     }
 
     public void setCurrentIndex(Integer currentIndex) {
@@ -124,7 +124,7 @@ public class Classement {
     }
 
     public Integer getCurrentIndexTournoi() {
-        return currentIndexTournoi++;
+        return currentIndexTournoi+1;
     }
 
     public void setCurrentIndexTournoi(Integer currentIndexTournoi) {
@@ -147,7 +147,17 @@ public class Classement {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return  new CSVAttachement(stream);
+        String filename;
+        if(classementParPartie)
+        {
+        filename = "classement-partie-"+selectedPartie.getLieu();
+        return  new CSVAttachement(stream, filename);
+        }
+        else
+        {
+        filename = "classement-tournoi-"+selectedTournoi.getNom()+"from"+selectedTournoi.getStartDate().toString()+"to"+selectedTournoi.getEndDate();
+        return  new CSVAttachement(stream, filename);
+        }
     }
 
     private String getCsv(String separator){

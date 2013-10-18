@@ -98,6 +98,9 @@ public class Partie {
         JSONObject options = new JSONObject();
         options.put("title", "Créer une nouvelle Partie");
         options.put("width", 520);
+        options.put("modal", true);
+        options.put("draggable", true);
+        options.put("resizable", true);
         return options;
     }
 

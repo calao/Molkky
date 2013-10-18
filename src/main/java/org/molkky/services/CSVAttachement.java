@@ -12,8 +12,8 @@ import java.io.InputStream;
 
 public class CSVAttachement extends AttachmentStreamResponse {
 
-    public CSVAttachement(InputStream is, String args) {
-        super(is, args);
+    public CSVAttachement(InputStream is, String filename) {
+        super(is, filename);
         this.contentType = "application/CSV";
         this.extension = "csv";
     }

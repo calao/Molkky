@@ -89,6 +89,9 @@ public class Membre {
         JSONObject options = new JSONObject();
         options.put("title", "Créer un nouveau membre");
         options.put("width", 520);
+        options.put("modal", true);
+        options.put("draggable", true);
+        options.put("resizable", true);
         return options;
     }
 
