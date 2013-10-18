@@ -1,6 +1,7 @@
 package org.molkky.pages;
 
 import org.apache.tapestry5.ComponentResources;
+import org.apache.tapestry5.StreamResponse;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -16,7 +17,11 @@ import org.molkky.entities.MembreEntity;
 import org.molkky.entities.PartieEntity;
 import org.molkky.entities.ScoresPartiesviewEntity;
 import org.molkky.entities.ScoresTournoiViewEntity;
+import org.molkky.services.CSVAttachement;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Set;
 
@@ -55,8 +60,9 @@ public class Classement {
     private Integer currentIndex = 1;
     private Integer currentIndexTournoi = 1;
 
+    @Persist
     @Property
-    private Boolean classementParPartie = true;
+    private Boolean classementParPartie;
 
     @Property
     private ScoresPartiesviewEntity currentMembre;
@@ -106,7 +112,7 @@ public class Classement {
             membreTournoiModel.add("id.prenom");
             membreTournoiModel.include("place", "id.nom","id.prenom", "id.score");
         }
-
+        classementParPartie=true;
     }
 
     public Integer getCurrentIndex() {
@@ -125,19 +131,55 @@ public class Classement {
         this.currentIndexTournoi = currentIndexTournoi;
     }
 
-    void onActionFromClassementParPartie()
+    void onActionFromChangeClassementType()
     {
-        classementParPartie = true;
+        classementParPartie = !classementParPartie;
         currentIndex = 1;
         currentIndexTournoi = 1;
         ajaxResponseRenderer.addRender(classementZone);
+    }
 
+    public StreamResponse onActionFromTelechargerCSV() {
+        String csvString = getCsv(";");
+        InputStream stream = null;
+        try {
+            stream = new ByteArrayInputStream(csvString.getBytes("UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return  new CSVAttachement(stream);
     }
-    void onActionFromClassementParTournoi()
-    {
-        classementParPartie = false;
-        currentIndex = 1;
-        currentIndexTournoi = 1;
-        ajaxResponseRenderer.addRender(classementZone);
+
+    private String getCsv(String separator){
+      String csvHeader = "Classement;Nom;Prenom;Score;\n";
+      String csvBody ="";
+      if(classementParPartie)
+      {   int i = 1;
+          for(ScoresPartiesviewEntity membre : membresList){
+
+             csvBody +=i+";"+membre.getId().getNom() +";"+membre.getId().getPrenom()+";"+membre.getId().getScore()+";\n";
+             i++;
+          }
+      }
+      else
+      {
+          int i = 1;
+          for(ScoresTournoiViewEntity membre : membresTournoiList){
+
+              csvBody +=i+";"+membre.getId().getNom() +";"+membre.getId().getPrenom()+";"+membre.getId().getScore()+";\n";
+              i++;
+          }
+      }
+      return csvHeader+csvBody;
     }
+
+    public String getTitleClassement(){
+        if(classementParPartie)
+            return "Classement par tournoi";
+
+        else
+            return "Classement par partie";
+    }
+
+
 }

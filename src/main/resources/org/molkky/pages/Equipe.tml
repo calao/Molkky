@@ -58,18 +58,19 @@
             ${currentEquipe.membre2.label}
         </p:membre2Cell>
         <p:deleteCell>
-            <t:actionlink t:id="delete" id="delete" context="currentEquipe.idEquipe">${message:delete}</t:actionlink>
+            <t:actionlink t:id="delete"  class="delete" title="${message:delete}" id="delete" context="currentEquipe.idEquipe"></t:actionlink>
         </p:deleteCell>
     </t:jquery.datatable>
     <br/>
 
     <form t:id="paramRandomForm">
-      <t:label for="numOfTerrain"/>  <t:textfield t:id="numOfTerrain" value="numOfTerrain" onkeyup="submit()"/>
+      <t:label for="numOfTerrain"/>  <t:textfield t:id="numOfTerrain" class="num" value="numOfTerrain" onkeyup="submit()"/>
+      <t:jquery.dialogAjaxLink t:id="randomize"  class="button" id="randomize" t:zone="randomListZone" t:dialog="randomizeEquipe">Générer
+            grille
+            alléatoire
+      </t:jquery.dialogAjaxLink>
     </form>
-    <t:jquery.dialogAjaxLink t:id="randomize" id="randomize" t:zone="randomListZone" t:dialog="randomizeEquipe">Générer
-        grille
-        alléatoire
-    </t:jquery.dialogAjaxLink>
+
 </t:zone>
 
 
