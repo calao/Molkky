@@ -1,4 +1,4 @@
-package org.molkky.pages;
+package DBRessources;
 
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.*;

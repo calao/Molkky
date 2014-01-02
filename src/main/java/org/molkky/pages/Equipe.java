@@ -14,11 +14,15 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.BeanModelSource;
 import org.apache.tapestry5.services.SelectModelFactory;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
+import org.apache.tapestry5.services.ajax.JavaScriptCallback;
+import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 import org.molkky.dao.EquipeDAO;
 import org.molkky.dao.MembreDAO;
 import org.molkky.entities.EquipeEntity;
 import org.molkky.entities.MembreEntity;
 import org.molkky.entities.PartieEntity;
+import org.springframework.context.annotation.ImportResource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +34,7 @@ import java.util.List;
  * Time: 7:47 PM
  * To change this template use File | Settings | File Templates.
  */
+@Import(library = {"context:static/js/select2-3.4.5/select2.js"}, stylesheet = {"context:static/js/select2-3.4.5/select2.css"})
 public class Equipe {
 
     private int index;
@@ -116,6 +121,9 @@ public class Equipe {
 
     private boolean selectedPartieExists;
 
+    @Inject
+    private AjaxResponseRenderer ajaxResponseRenderer;
+
     void setupRender() {
 
         membres1 = new ArrayList<MembreEntity>();
@@ -168,14 +176,21 @@ public class Equipe {
 
     }
 
-    Object onValueChangedFromMembre1(Integer selectedMembre1) {
+    void onValueChangedFromMembre1(Integer selectedMembre1) {
         if (selectedMembre1 != null) {
             membres2 = membreDAO.getAllWithoutEquipeByPartieAndNotAlreadySelected(selectedPartie.getIdPartie(), selectedMembre1);
         } else {
             membres2 = new ArrayList<MembreEntity>();
         }
         membre2SelectModel = selectModelFactory.create(membres2, "label");
-        return membre2Zone;
+
+        ajaxResponseRenderer.addRender(membre2Zone);
+        ajaxResponseRenderer.addCallback(new JavaScriptCallback() {
+            public void run(JavaScriptSupport javaScriptSupport) {
+                javaScriptSupport.addScript("var id1 = document.getElementsByName(\"membre1\")[0].id; var id2 = document.getElementsByName(\"membre2\")[0].id;  $(\"#\"+id1).select2(); $(\"#\"+id2).select2();");
+            }
+        });
+
     }
 
     Object onActionFromRandomize() {

@@ -3,7 +3,10 @@
       xmlns:p="tapestry:parameter">
 
 <fieldset>
+    <script>
 
+        $(document).ready(function() { var id1 = document.getElementsByName("membre1")[0].id; var id2 = document.getElementsByName("membre2")[0].id;  $("#"+id1).select2(); $("#"+id2).select2();});
+    </script>
     <legend>${message:addEquipe}</legend>
     <t:zone t:id="membre2Zone">
     <t:form t:id="addEquipeForm" class="equipeForm">
@@ -27,11 +30,11 @@
                 </td>
 
                 <td class="center">
-                    <t:select t:id="membre1" zone="membre2Zone" t:value="selectedMembre1" t:model="membre1SelectModel"
+                    <t:select style="width:250px" t:id="membre1" id ="membre1" zone="membre2Zone" t:value="selectedMembre1" t:model="membre1SelectModel"
                             />
                 </td>
                 <td class="center">
-                    <t:select t:id="membre2" t:value="selectedMembre2" t:model="membre2SelectModel"
+                    <t:select style="width:250px" t:id="membre2"  id ="membre2"  t:value="selectedMembre2" t:model="membre2SelectModel"
                             />
                 </td>
 

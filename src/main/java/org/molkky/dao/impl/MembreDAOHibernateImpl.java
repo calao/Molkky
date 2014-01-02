@@ -8,10 +8,13 @@ import org.hibernate.criterion.Restrictions;
 import org.molkky.dao.MembreDAO;
 import org.molkky.entities.EquipeEntity;
 import org.molkky.entities.MembreEntity;
+import org.molkky.services.MembreComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -43,8 +46,11 @@ public class MembreDAOHibernateImpl extends AbstractDAOHibernateImpl<MembreEntit
         if(listMemberId!=null && listMemberId.size()>0)
         criteria.add(Restrictions.not(Restrictions.in("idMembre", listMemberId)));
 
+        List<MembreEntity> listMembre  = criteria.list();
 
-        return criteria.list();  //To change body of implemented methods use File | Settings | File Templates.
+        Collections.sort(listMembre, new MembreComparator());
+                
+        return listMembre;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public List<MembreEntity> getAllWithoutEquipeByPartieAndNotAlreadySelected(int idPartie, int selectedMember) {
