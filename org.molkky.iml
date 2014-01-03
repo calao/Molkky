@@ -90,6 +90,7 @@
     <orderEntry type="library" name="Maven: com.yahoo.platform.yui:yuicompressor:2.4.7" level="project" />
     <orderEntry type="library" name="Maven: rhino:js:1.6R7" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.13" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.poi:poi:3.9" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.testng:testng:5.14.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.9" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.beanshell:bsh:2.0b4" level="project" />
