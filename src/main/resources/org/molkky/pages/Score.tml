@@ -1,0 +1,79 @@
+<html t:type="layout" title="Score"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+<fieldset>
+    <script>
+        $(document).ready(function() { var id1 = document.getElementsByName("numeroEquipe")[0].id; $("#"+id1).select2();});
+    </script>
+    <legend>${message:addEquipe}</legend>
+    <t:zone t:id="numeroEquipeZone">
+        <t:form t:id="addEquipeForm" class="equipeForm">
+            <t:errors/>
+            <table>
+                <tr>
+                    <td class="center">
+                        <t:label for="numeroEquipe">${message:numeroEquipe}</t:label>
+                    </td>
+                    <td class="center">
+                        <t:label for="pointMembre1">${label1}</t:label>
+                    </td>
+                    <td class="center">
+                        <t:label for="pointMembre2">${label2}</t:label>
+                    </td>
+                    <td/>
+                </tr>
+                <tr>
+                    <td class="center">
+                        <t:select style="width:100px" t:id="numeroEquipe" id ="numeroEquipe" zone="numeroEquipeZone" t:value="selectedNumeroEquipe" t:model="numberOfEquipeModel"/>
+                    </td>
+
+                    <td class="center">
+                        <t:textfield t:id="pointMembre1" value="pointMembre1" />
+                    </td>
+                    <td class="center">
+                        <t:textfield t:id="pointMembre2" value="pointMembre2" />
+                    </td>
+
+                    <td class="center">
+                        <t:submit value="${message:submit}"/>
+                    </td>
+                </tr>
+            </table>
+
+        </t:form>
+    </t:zone>
+    <br/>
+</fieldset>
+
+<br/>
+
+    <t:grid source="membresList" t:id="scoreList" id="scoreList" name="scoreList" rowClass="${rowClass}" class="dataTable" style=" width: 100% ; " row="currentMembre" model="membreModel" inplace="true"
+            rowIndex="currentIndex" rowsPerPage="40">
+        <p:manche1Cell>
+            <div t:id="scorePartie1" t:type="jquery/inPlaceEditor"
+                 value="scorePartie1" t:context="${currentMembre.idMembre}" t:options="optionsJSON" />
+        </p:manche1Cell>
+        <p:manche2Cell>
+            <div t:id="scorePartie2" t:type="jquery/inPlaceEditor"
+                 value="scorePartie2" t:context="${currentMembre.idMembre}" t:options="optionsJSON" />
+        </p:manche2Cell>
+        <p:manche3Cell>
+            <div t:id="scorePartie3" t:type="jquery/inPlaceEditor"
+                 value="scorePartie3" t:context="${currentMembre.idMembre}" t:options="optionsJSON" />
+        </p:manche3Cell>
+        <p:manche4Cell>
+            <div t:id="scorePartie4" t:type="jquery/inPlaceEditor"
+                 value="scorePartie4" t:context="${currentMembre.idMembre}" t:options="optionsJSON" />
+        </p:manche4Cell>
+    </t:grid>
+
+    <t:zone t:id="updateZone" id="updateZone" visible="false">
+        <div>
+            Last in place editor update is related to <br/>
+
+        </div>
+    </t:zone>
+
+
+</html>

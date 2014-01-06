@@ -21,4 +21,6 @@ public interface MembreDAO extends AbstractDAO<MembreEntity, Integer> {
 
     List<MembreEntity> getAllByPartie(int idPartie);
 
+    List<MembreEntity> getAllByPartieAndEquipe(int idPartie, int numeroEquipe);
+
 }

@@ -1,6 +1,7 @@
-package DBRessources;
+package org.molkky.pages;
 
 import org.apache.tapestry5.ComponentResources;
+import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.beaneditor.BeanModel;
 import org.apache.tapestry5.corelib.components.Zone;
@@ -8,7 +9,12 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.BeanModelSource;
+import org.apache.tapestry5.services.SelectModelFactory;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
+import org.apache.tapestry5.services.ajax.JavaScriptCallback;
+import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 import org.got5.tapestry5.jquery.components.InPlaceEditor;
+import org.molkky.dao.EquipeDAO;
 import org.molkky.dao.MembreDAO;
 import org.molkky.dao.ScoreDAO;
 import org.molkky.entities.MembreEntity;
@@ -25,7 +31,11 @@ import java.util.List;
  * Time: 5:52 PM
  * To change this template use File | Settings | File Templates.
  */
+@Import(library = {"context:static/js/select2-3.4.5/select2.js"}, stylesheet = {"context:static/js/select2-3.4.5/select2.css"})
 public class Score {
+
+    @InjectComponent
+    private Zone numeroEquipeZone;
 
     @Property
     @Persist
@@ -35,7 +45,28 @@ public class Score {
     private PartieEntity selectedPartie;
 
     @Inject
+    private SelectModelFactory selectModelFactory;
+
+    @Property
+    @Persist
+    private List<Integer> numberOfEquipeModel;
+
+    @Property
+    private Integer pointMembre1, pointMembre2;
+
+    @Persist
+    @Property
+    private String label1, label2;
+
+    @Property
+    @Persist
+    private Integer selectedNumeroEquipe;
+
+    @Inject
     private MembreDAO membreDao;
+
+    @Inject
+    private EquipeDAO equipeDAO;
 
     @Inject
     private ScoreDAO scoreDAO;
@@ -83,20 +114,26 @@ public class Score {
             membreModel.include("nom", "prenom", "manche1", "manche2", "manche3", "manche4");
         }
 
+        numberOfEquipeModel = new ArrayList<Integer>();
+
+        if(selectedPartie!=null)
+        {
+        numberOfEquipeModel = equipeDAO.getAllEquipeNumberByPartie( selectedPartie.getIdPartie());
+        }
+
     }
 
-    private int getScoreManche(int manche)
+    private Integer getScoreManche(int manche)
     {
         ScoreEntity score = scoreDAO.getScoreByMancheAndMemberAndPartie(manche, currentMembre.getIdMembre(), selectedPartie.getIdPartie());
         if (score == null)
-        { score = new ScoreEntity(manche, currentMembre.getIdMembre(), selectedPartie.getIdPartie(), 0);
-          scoreDAO.save(score);
-          return score.getScore();
+        {
+          return null;
         }
         return score.getScore();
     }
 
-    public int getScorePartie1() {
+    public Integer getScorePartie1() {
         return getScoreManche(1);
     }
 
@@ -104,7 +141,7 @@ public class Score {
         this.scorePartie1 = scorePartie1;
     }
 
-    public int getScorePartie2() {
+    public Integer getScorePartie2() {
         return getScoreManche(2);
     }
 
@@ -112,7 +149,7 @@ public class Score {
         this.scorePartie2 = scorePartie2;
     }
 
-    public int getScorePartie3() {
+    public Integer getScorePartie3() {
         return getScoreManche(3);
     }
 
@@ -120,7 +157,7 @@ public class Score {
         this.scorePartie3 = scorePartie3;
     }
 
-    public int getScorePartie4() {
+    public Integer getScorePartie4() {
         return getScoreManche(4);
     }
 
@@ -148,6 +185,8 @@ public class Score {
 
     private void setScoreManche(int manche, int idMembre, int value)
     {
+        label1 = null;
+        label2 =null;
         ScoreEntity score = scoreDAO.getScoreByMancheAndMemberAndPartie(manche, idMembre, selectedPartie.getIdPartie());
         if(score != null)
         {
@@ -204,6 +243,24 @@ public class Score {
           return "odd";
         }
     }
+
+    @Inject
+    private AjaxResponseRenderer ajaxResponseRenderer;
+
+    void onValueChangedFromNumeroEquipe(Integer selectedNumeroEquipe) {
+        this.selectedNumeroEquipe = selectedNumeroEquipe;
+        List<MembreEntity> membres = membreDao.getAllByPartieAndEquipe(selectedPartie.getIdPartie(), selectedNumeroEquipe);
+        label1 = membres.get(0).getLabel();
+        label2 = membres.get(1).getLabel();
+        ajaxResponseRenderer.addRender(numeroEquipeZone);
+        ajaxResponseRenderer.addCallback(new JavaScriptCallback() {
+            public void run(JavaScriptSupport javaScriptSupport) {
+                javaScriptSupport.addScript("var id1 = document.getElementsByName(\"numeroEquipe\")[0].id; $(\"#\"+id1).select2();");
+            }
+        });
+
+    }
+
 
 
 }

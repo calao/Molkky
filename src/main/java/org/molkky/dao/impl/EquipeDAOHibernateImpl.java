@@ -67,5 +67,10 @@ public class EquipeDAOHibernateImpl extends AbstractDAOHibernateImpl<EquipeEntit
         List<ScoreEntity> scores = scoreDAO.getAllScoresForEquipe(equipeEntity);
         scoreDAO.deleteAll(scores);
         super.getHibernateTemplate().delete(equipeEntity);
-    } 
+    }
+
+    public List<Integer> getAllEquipeNumberByPartie(Integer idPartie) {
+        String query = "select numeroEquipe from EquipeEntity where idPartie = :idPartie";
+        return getSession().createQuery(query).setParameter("idPartie", idPartie).list();
+    }
 }

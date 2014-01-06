@@ -19,5 +19,6 @@ public interface EquipeDAO extends AbstractDAO<EquipeEntity, Integer> {
     Integer getMaxNumberByPartie(Integer idPartie);
     boolean checkNumber(Integer idPartie, Integer num);
     List<EquipeEntity> findAllByPartie(Integer idPartie);
+    List<Integer> getAllEquipeNumberByPartie(Integer idPartie);
 
 }
