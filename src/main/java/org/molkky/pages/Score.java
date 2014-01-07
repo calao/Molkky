@@ -4,6 +4,7 @@ import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.SelectModel;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.beaneditor.BeanModel;
+import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -34,6 +35,9 @@ import java.util.List;
 @Import(library = {"context:static/js/select2-3.4.5/select2.js"}, stylesheet = {"context:static/js/select2-3.4.5/select2.css"})
 public class Score {
 
+    @Component
+    private Form encodeScoreForm;
+
     @InjectComponent
     private Zone numeroEquipeZone;
 
@@ -51,16 +55,17 @@ public class Score {
     @Persist
     private List<Integer> numberOfEquipeModel;
 
+    @Persist
     @Property
     private Integer pointMembre1, pointMembre2;
 
     @Persist
-    @Property
-    private String label1, label2;
+    @Property(read = true)
+    private MembreEntity membre1, membre2;
 
     @Property
     @Persist
-    private Integer selectedNumeroEquipe;
+    private Integer selectedNumeroEquipe, selectedNumeroManche;
 
     @Inject
     private MembreDAO membreDao;
@@ -96,6 +101,11 @@ public class Score {
     private ComponentResources _componentResources;
 
     void setupRender() {
+
+        membre1 = null;
+        membre2= null;
+        selectedNumeroEquipe = null;
+
         if (selectedPartie != null) {
             membresList = membreDao.getAllByPartie(selectedPartie.getIdPartie());
 
@@ -125,10 +135,15 @@ public class Score {
 
     private Integer getScoreManche(int manche)
     {
-        ScoreEntity score = scoreDAO.getScoreByMancheAndMemberAndPartie(manche, currentMembre.getIdMembre(), selectedPartie.getIdPartie());
+        return getScoreManche(manche, null);
+    }
+
+    private Integer getScoreManche(int manche, Integer idMembre)
+    {
+        ScoreEntity score = scoreDAO.getScoreByMancheAndMemberAndPartie(manche, idMembre==null?currentMembre.getIdMembre():idMembre, selectedPartie.getIdPartie());
         if (score == null)
         {
-          return null;
+            return null;
         }
         return score.getScore();
     }
@@ -177,7 +192,7 @@ public class Score {
     }
 
 
-    @OnEvent(component = "scorePartie1", value = InPlaceEditor.SAVE_EVENT)
+/*    @OnEvent(component = "scorePartie1", value = InPlaceEditor.SAVE_EVENT)*/
     void setScorePartie1(int idMembre, int value) {
         setScoreManche(1, idMembre, value);
         System.out.println("id " + idMembre + " valeur " +value);
@@ -185,8 +200,6 @@ public class Score {
 
     private void setScoreManche(int manche, int idMembre, int value)
     {
-        label1 = null;
-        label2 =null;
         ScoreEntity score = scoreDAO.getScoreByMancheAndMemberAndPartie(manche, idMembre, selectedPartie.getIdPartie());
         if(score != null)
         {
@@ -201,19 +214,19 @@ public class Score {
 
     }
 
-    @OnEvent(component = "scorePartie2", value = InPlaceEditor.SAVE_EVENT)
+    /*@OnEvent(component = "scorePartie2", value = InPlaceEditor.SAVE_EVENT)*/
     void setScorePartie2(int idMembre,  int value) {
         setScoreManche(2, idMembre, value);
         System.out.println("id " + idMembre + " valeur " +value);
     }
 
-    @OnEvent(component = "scorePartie3", value = InPlaceEditor.SAVE_EVENT)
+/*    @OnEvent(component = "scorePartie3", value = InPlaceEditor.SAVE_EVENT)*/
     void setScorePartie3(int idMembre, int value) {
         setScoreManche(3, idMembre, value);
         System.out.println("id " + idMembre + " valeur " +value);
     }
 
-    @OnEvent(component = "scorePartie4", value = InPlaceEditor.SAVE_EVENT)
+/*    @OnEvent(component = "scorePartie4", value = InPlaceEditor.SAVE_EVENT)*/
     void setScorePartie4(int idMembre, int value) {
         setScoreManche(4, idMembre, value);
         System.out.println("id " + idMembre + " valeur " +value);
@@ -250,15 +263,61 @@ public class Score {
     void onValueChangedFromNumeroEquipe(Integer selectedNumeroEquipe) {
         this.selectedNumeroEquipe = selectedNumeroEquipe;
         List<MembreEntity> membres = membreDao.getAllByPartieAndEquipe(selectedPartie.getIdPartie(), selectedNumeroEquipe);
-        label1 = membres.get(0).getLabel();
-        label2 = membres.get(1).getLabel();
+        membre1 = membres.get(0);
+        membre2 = membres.get(1);
+        pointMembre1 = getScoreManche(selectedNumeroManche, membre1.getIdMembre());
+        pointMembre2 = getScoreManche(selectedNumeroManche, membre2.getIdMembre());
         ajaxResponseRenderer.addRender(numeroEquipeZone);
+        regenSelectJS(ajaxResponseRenderer);
+    }
+
+    void onValueChangedFromNumeroManche(String selectedNumeroManche) {
+        this.selectedNumeroManche = Integer.valueOf(selectedNumeroManche);
+
+        ajaxResponseRenderer.addRender(numeroEquipeZone);
+        regenSelectJS(ajaxResponseRenderer);
+    }
+
+    void regenSelectJS(AjaxResponseRenderer ajaxResponseRenderer)
+    {
         ajaxResponseRenderer.addCallback(new JavaScriptCallback() {
             public void run(JavaScriptSupport javaScriptSupport) {
-                javaScriptSupport.addScript("var id1 = document.getElementsByName(\"numeroEquipe\")[0].id; $(\"#\"+id1).select2();");
+                javaScriptSupport.addScript("var id1 = document.getElementsByName(\"numeroEquipe\")[0].id; $(\"#\"+id1).select2();  var id2 = document.getElementsByName(\"numeroManche\")[0].id;\n" +
+                        "            $(\"#\" + id2).select2();");
             }
         });
+    }
 
+    void onValidateFromEncodeScoreForm(){
+
+        boolean error = false;
+            if(pointMembre1!=pointMembre2 && pointMembre1 > 0 && pointMembre2 > 0 )
+            {
+             error = true;
+             encodeScoreForm.recordError("Les point doivent être les même ou égal à 0");
+            }
+
+            if(pointMembre1<0 || pointMembre2 < 0 )
+            {   error = true;
+                encodeScoreForm.recordError("Les point ne peuvent pas être négatif");
+            }
+
+        if(error)
+        {
+            ajaxResponseRenderer.addRender(numeroEquipeZone);
+        }
+    }
+
+     Object onSuccessFromEncodeScoreForm(){
+
+        System.out.println("selectedNumeroManche " + selectedNumeroManche);
+        System.out.println("membre2.getIdMembre() " +membre2.getIdMembre() );
+        System.out.println("membre1.getIdMembre() " +membre1.getIdMembre());
+        System.out.println("pointMembre1 "+pointMembre1);
+
+        setScoreManche(selectedNumeroManche, membre1.getIdMembre(), pointMembre1);
+        setScoreManche(selectedNumeroManche, membre2.getIdMembre(), pointMembre2);
+        return this.getClass();
     }
 
 

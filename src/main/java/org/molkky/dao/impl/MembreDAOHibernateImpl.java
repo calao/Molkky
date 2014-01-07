@@ -68,7 +68,11 @@ public class MembreDAOHibernateImpl extends AbstractDAOHibernateImpl<MembreEntit
 
         criteria.add(Restrictions.not(Restrictions.eq("idMembre", selectedMember)));
 
-        return criteria.list();  //To change body of implemented methods use File | Settings | File Templates.
+        List<MembreEntity> listMembre  = criteria.list();
+
+        Collections.sort(listMembre, new MembreComparator());
+
+        return listMembre;
     }
 
     public List<MembreEntity> getAllByPartie(int idPartie) {

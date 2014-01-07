@@ -46,7 +46,7 @@ public class Equipe {
     @Property
     private Select membre1, membre2;
 
-    @Persist
+  /*  @Persist*/
     @Property
     private Integer selectedMembre1;
 
