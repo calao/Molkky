@@ -39,10 +39,6 @@ public class Classement {
     @Persist
     private List<ScoresTournoiViewEntity> membresTournoiList;
 
-    @Inject
-    @Path("context:static/xls/template-partie.xls")
-    private Asset templatePartie;
-
     @SessionState(create = false)
     private PartieEntity selectedPartie;
 
@@ -158,69 +154,6 @@ public class Classement {
             filename = "classement-tournoi-" + selectedTournoi.getNom() + "from" + selectedTournoi.getStartDate().toString() + "to" + selectedTournoi.getEndDate();
             return new CSVAttachement(stream, filename);
         }
-
-
-       /* HSSFSheet sheet;
-        HSSFWorkbook workbook = null;
-        try {
-            workbook = new HSSFWorkbook(templatePartie.getResource().openStream());
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        if (workbook == null) {
-            workbook = new HSSFWorkbook();
-            sheet = workbook.createSheet("Sample sheet");
-        } else {
-            sheet = workbook.getSheetAt(0);
-            workbook.cloneSheet(0);
-            workbook.setSheetName(1, "test");
-        }
-
-
-        List<Object[]> data = new ArrayList<Object[]>();
-        data.add(new Object[]{"Emp No.", "Name", "Salary"});
-        data.add(new Object[]{1d, "John", 1500000d});
-        data.add(new Object[]{2d, "Sam", 800000d});
-        data.add(new Object[]{3d, "Dean", 700000d});
-
-        int rownum = 0;
-        for (Object[] objArr : data) {
-            Row row = sheet.createRow(rownum++);
-            int cellnum = 0;
-            for (Object obj : objArr) {
-                Cell cell = row.createCell(cellnum++);
-                if (obj instanceof Date)
-                    cell.setCellValue((Date) obj);
-                else if (obj instanceof Boolean)
-                    cell.setCellValue((Boolean) obj);
-                else if (obj instanceof String)
-                    cell.setCellValue((String) obj);
-                else if (obj instanceof Double)
-                    cell.setCellValue((Double) obj);
-            }
-        }
-
-        try {
-            InputStream stream = null;
-            OutputStream out = new ByteArrayOutputStream();
-            workbook.write(out);
-            out.close();
-
-            InputStream decodedInput = new ByteArrayInputStream(((ByteArrayOutputStream) out).toByteArray());
-            System.out.println("Excel written successfully..");
-            return new XLSAttachement(decodedInput, "test");
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return null;*/
     }
 
     private String getCsv(String separator) {

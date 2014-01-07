@@ -1,6 +1,13 @@
 package org.molkky.pages;
 
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.SelectModel;
+import org.apache.tapestry5.StreamResponse;
 import org.apache.tapestry5.alerts.AlertManager;
 import org.apache.tapestry5.alerts.Duration;
 import org.apache.tapestry5.alerts.Severity;
@@ -22,9 +29,12 @@ import org.molkky.dao.MembreDAO;
 import org.molkky.entities.EquipeEntity;
 import org.molkky.entities.MembreEntity;
 import org.molkky.entities.PartieEntity;
+import org.molkky.services.XLSAttachement;
 import org.springframework.context.annotation.ImportResource;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -123,6 +133,10 @@ public class Equipe {
 
     @Inject
     private AjaxResponseRenderer ajaxResponseRenderer;
+
+    @Inject
+    @Path("context:static/xls/template-partie.xls")
+    private Asset templatePartie;
 
     void setupRender() {
 
@@ -269,5 +283,72 @@ public class Equipe {
 
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public StreamResponse onActionFromTelechargerXLS(){
+      HSSFSheet sheet;
+        HSSFWorkbook workbook = null;
+        try {
+            workbook = new HSSFWorkbook(templatePartie.getResource().openStream());
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+        if (workbook == null) {
+            workbook = new HSSFWorkbook();
+            workbook.createSheet("sheet1");
+        } else {
+
+            for(int i = 0; i<randomTerrainsList.size()-1;i++)
+            {
+            workbook.cloneSheet(0);
+            workbook.setSheetName(i, "Terrain "+(i+1));
+            }
+            workbook.setSheetName(randomTerrainsList.size()-1, "Terrain "+randomTerrainsList.size());
+
+            for(int i = 0; i<randomTerrainsList.size();i++)
+            {
+            sheet = workbook.getSheetAt(i);
+            List<EquipeEntity> equipeEntities = randomTerrainsList.get(i);
+            int rownum = 0;
+                Row row = sheet.getRow(rownum++);
+                Row row2 = sheet.getRow(rownum++);
+            int cellnum = 0;
+            for (EquipeEntity equipe : equipeEntities) {
+
+                Cell cell = row.getCell(cellnum++);
+                cell.setCellValue("Equipe"+equipe.getNumeroEquipe());
+                Cell cell2 = row2.getCell(cellnum-1);
+                cell2.setCellValue(equipe.getMembre1().getLabel());
+
+                cellnum++;
+                Cell cell3 = row2.getCell(cellnum-1);
+                cell3.setCellValue(equipe.getMembre2().getLabel());
+            }
+            }
+        }
+
+
+
+        try {
+            InputStream stream = null;
+            OutputStream out = new ByteArrayOutputStream();
+            workbook.write(out);
+            out.close();
+
+            InputStream decodedInput = new ByteArrayInputStream(((ByteArrayOutputStream) out).toByteArray());
+            System.out.println("Excel written successfully..");
+            return new XLSAttachement(decodedInput, "test");
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

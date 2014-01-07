@@ -80,6 +80,7 @@
 <t:jquery.dialog t:clientId="randomizeEquipe" params="params">
 
     <t:zone t:id="randomListZone" id="randomListZone">
+        <t:actionlink class="csv" t:id="telechargerXLS" title="literal:Télécharger Excel"> &nbsp; </t:actionlink>
         <t:loop source="randomTerrainsList" index="index" value="randomEquipeList">
             Terrain ${index}
             <t:grid source="randomEquipeList" row="currentEquipe" model="equipeRandomModel">
