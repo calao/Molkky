@@ -29,7 +29,7 @@
                 <prop key="hibernate.format_sql">true</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.connection.username">root</prop>
-                <prop key="hibernate.connection.password"></prop>
+                <prop key="hibernate.connection.password">toor</prop>
             </props>
         </property>
 

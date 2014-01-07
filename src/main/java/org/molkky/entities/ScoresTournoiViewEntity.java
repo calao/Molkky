@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Time: 2:09 PM
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "ScoresTournoiview", schema = "", catalog = "MolkkyDB")
+@Table(name = "ScoresTournoiview")
 @Entity
 public class ScoresTournoiViewEntity implements Serializable {
 

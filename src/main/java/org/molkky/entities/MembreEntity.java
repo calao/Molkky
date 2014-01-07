@@ -13,7 +13,7 @@ import java.util.List;
  * Time: 6:01 PM
  * To change this template use File | Settings | File Templates.
  */
-@javax.persistence.Table(name = "Members", schema = "", catalog = "MolkkyDB")
+@javax.persistence.Table(name = "Members")
 @Entity
 public class MembreEntity implements java.io.Serializable  {
 

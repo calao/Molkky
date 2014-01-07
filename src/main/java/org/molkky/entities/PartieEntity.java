@@ -11,7 +11,7 @@ import java.util.Set;
  * Time: 6:01 PM
  * To change this template use File | Settings | File Templates.
  */
-@javax.persistence.Table(name = "Parties", schema = "", catalog = "MolkkyDB")
+@javax.persistence.Table(name = "Parties")
 @Entity
 public class PartieEntity implements java.io.Serializable  {
     private int idPartie;

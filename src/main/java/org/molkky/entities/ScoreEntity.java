@@ -9,7 +9,7 @@ import javax.persistence.*;
  * Time: 6:01 PM
  * To change this template use File | Settings | File Templates.
  */
-@javax.persistence.Table(name = "Scores", schema = "", catalog = "MolkkyDB")
+@javax.persistence.Table(name = "Scores")
 @Entity
 public class ScoreEntity implements java.io.Serializable  {
     private int idScore;

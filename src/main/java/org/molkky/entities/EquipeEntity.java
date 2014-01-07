@@ -9,7 +9,7 @@ import javax.persistence.*;
  * Time: 6:01 PM
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "Equipes", schema = "", catalog = "MolkkyDB")
+@Table(name = "Equipes")
 @Entity
 public class EquipeEntity implements java.io.Serializable {
 

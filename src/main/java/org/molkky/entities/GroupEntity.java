@@ -11,7 +11,7 @@ import javax.persistence.Id;
  * Time: 6:01 PM
  * To change this template use File | Settings | File Templates.
  */
-@javax.persistence.Table(name = "Groups", schema = "", catalog = "MolkkyDB")
+@javax.persistence.Table(name = "Groups")
 @Entity
 public class GroupEntity implements java.io.Serializable  {
     private int idGroup;

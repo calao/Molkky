@@ -14,7 +14,7 @@ import java.util.Date;
 
  * To change this template use File | Settings | File Templates.
  */
-@Table(name = "Tournois", schema = "", catalog = "MolkkyDB")
+@Table(name = "Tournois")
 @Entity
 public class TournoiEntity implements Serializable  {
     private int idTournoi;
