@@ -131,6 +131,7 @@ public class Score {
         numberOfEquipeModel = equipeDAO.getAllEquipeNumberByPartie( selectedPartie.getIdPartie());
         }
 
+
     }
 
     private Integer getScoreManche(int manche)
@@ -146,6 +147,10 @@ public class Score {
             return null;
         }
         return score.getScore();
+    }
+
+    public Integer getEquipe() {
+        return getScoreManche(2);
     }
 
     public Integer getScorePartie1() {

@@ -99,8 +99,13 @@ div.logo a {
     color: #D0C7A6;
 }
 
-div.menu {
+
+div.menuTournoi {
     float: right;
+}
+
+div.menu {
+    float: left;
 }
 
 div.menu ul {
@@ -155,10 +160,15 @@ div.tournoiComponent {
     margin-bottom: 20px;
 }
 
+.selectTournoiTable tr{
+    height: 42px;
+}
+.selectTournoiTable td{
+    vertical-align: middle;
+}
+
 .selectComponent {
-    margin-right: 10px;
-    width: 250px;
-    margin-bottom: 20px;
+    width: 200px;
 }
 
 /* Page */
@@ -171,7 +181,7 @@ div.page {
 
 div.content {
     float: left;
-    width: 74%;
+    width: 90%;
     margin-right: 1%;
 }
 

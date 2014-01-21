@@ -20,11 +20,10 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
 <body>
 <!-- start header -->
 <div class="header">
-    <div class="logo">
-        <h1>
-
-        </h1>
+    <div class="menuTournoi">
+     <div class="tournoiComponent" t:type="selectTournoi"/>
     </div>
+
     <div class="menu">
         <ul>
             <li t:type="loop" source="pageNames" value="pageName" class="prop:classForPageName">
@@ -40,25 +39,7 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
 <div class="page">
 
     <!-- start sidebar -->
-    <div class="rightPanel">
 
-
-        <div class="tournoiComponent" t:type="selectTournoi"/>
-
-        <div class="sidebar">
-            <div class="header">
-                <h2>${sidebarTitle}</h2>
-            </div>
-            <t:if test="sidebar">
-
-
-                <div class="sidebar-content">
-                    <t:delegate to="sidebar"/>
-                </div>
-            </t:if>
-            <div class="footer"/>
-        </div>
-    </div>
     <!-- end sidebar -->
     <!-- start content -->
     <div class="content">

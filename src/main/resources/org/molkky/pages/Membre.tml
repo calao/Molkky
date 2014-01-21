@@ -8,6 +8,9 @@
         <p:deleteCell>
             <t:actionlink t:id="delete" class="delete" title="${message:delete}" id="delete" context="currentMembre.idMembre"></t:actionlink>
         </p:deleteCell>
+        <p:updateCell>
+            <t:actionlink t:id="delete" class="delete" title="${message:delete}" id="delete" context="currentMembre.idMembre"></t:actionlink>
+        </p:updateCell>
     </t:jquery.datatable>
     <br/>
     <t:jquery.dialoglink  class="button" t:id="link1" t:dialog="addMembreFormDialog">Ajouter un membre</t:jquery.dialoglink>

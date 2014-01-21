@@ -1,31 +1,53 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
              xmlns:p="tapestry:parameter">
+
     <t:zone t:id="selectTournoiZone">
-    <t:if test="isTournoi()">
-        <t:form t:id="selectTournoiForm" zone="selectedTournoiZone">
-            <t:label class="labelTournoi" for="tournoiSelection">${message:selectTournoi}</t:label>
-            <br/>
-            <t:select class="selectComponent" t:id="tournoiSelection" blankOption="never" t:value="selectedTournoi"
-                      t:model="tournoiSelectModel" zone="selectTournoiZone"/>
-        </t:form>
+        <table class="selectTournoiTable">
+            <tr >
+                <t:if test="isTournoi()">
 
-        <t:if test="isPartie()">
-            <t:form t:id="selectPartieForm" t:zone="selectedTournoiZone">
-                <t:label class="labelTournoi" for="partieSelection">${message:selectPartie}</t:label>
-                <br/>
-                <t:select class="selectComponent" t:id="partieSelection" blankOption="never" t:value="selectedPartie"
-                          t:model="partieSelectModel" zone="selectTournoiZone"/>
-            </t:form>
 
-            <p:else>
-                <p t:type ="textoutput" class="warning" t:value="${message:noPartie}"/>
-            </p:else>
-        </t:if>
+                    <t:form t:id="selectTournoiForm" zone="selectedTournoiZone">
+                        <td>
+                            <t:label class="labelTournoi" for="tournoiSelection">${message:selectTournoi}</t:label>
+                        </td>
+                        <td>
+                            <t:select class="selectComponent" t:id="tournoiSelection" blankOption="never"
+                                      t:value="selectedTournoi"
+                                      t:model="tournoiSelectModel" zone="selectTournoiZone"/>
+                        </td>
+                    </t:form>
 
-        <p:else>
-            <p t:type ="textoutput" class="warning" t:value="${message:noTournoi}"/>
-        </p:else>
-    </t:if>
+                    <t:if test="isPartie()">
+
+                        <t:form t:id="selectPartieForm" t:zone="selectedTournoiZone">
+                            <td>
+                                <t:label class="labelTournoi" for="partieSelection">${message:selectPartie}</t:label>
+                            </td>
+                            <td>
+                                <t:select class="selectComponent" t:id="partieSelection" blankOption="never"
+                                          t:value="selectedPartie"
+                                          t:model="partieSelectModel" zone="selectTournoiZone"/>
+                            </td>
+                        </t:form>
+
+                        <p:else>
+                            <td>
+                                <p t:type="textoutput" class="warning" t:value="${message:noPartie}"/>
+                            </td>
+                        </p:else>
+                    </t:if>
+
+                    <p:else>
+                        <td>
+                            <p t:type="textoutput" class="warning" t:value="${message:noTournoi}"/>
+                        </td>
+                    </p:else>
+                </t:if>
+            </tr>
+        </table>
     </t:zone>
+
+
 </t:container>

@@ -86,6 +86,10 @@
 <t:jquery.datatable source="membresList" t:id="scoreList" id="scoreList" name="scoreList" class="dataTable"
         style=" width: 100% ; " row="currentMembre" model="membreModel"
         rowIndex="currentIndex" rowsPerPage="40">
+
+    <p:equipeCell>
+        ${equipe}
+    </p:equipeCell>
     <p:manche1Cell>
         ${scorePartie1}
     </p:manche1Cell>
