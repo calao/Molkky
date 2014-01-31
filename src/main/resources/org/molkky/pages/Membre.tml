@@ -6,7 +6,7 @@
 <t:jquery.datatable id="membreDatatable" t:id="membreDatatable" name="membreDatatable" t:mode="false"  t:model="membreModel" t:source="membresList" t:row="currentMembre">
     <p:actionCell>
         <a href="UpdateMembre/${currentMembre.idMembre}" id="update_${currentMembre.idMembre}" class="update"  name="update"
-                      title="${message:update}"></a>
+                      title="${message:update}" target="_blank"></a>
         <t:actionlink t:id="delete" class="delete" title="${message:delete}" id="delete"
                       context="currentMembre.idMembre"></t:actionlink>
     </p:actionCell>

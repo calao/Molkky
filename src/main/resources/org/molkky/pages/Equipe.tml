@@ -5,46 +5,59 @@
 <fieldset>
     <script>
 
-        $(document).ready(function() { var id1 = document.getElementsByName("membre1")[0].id; var id2 = document.getElementsByName("membre2")[0].id;  $("#"+id1).select2(); $("#"+id2).select2();});
+        $(document).ready(function () {
+            var id1 = document.getElementsByName("membre1")[0].id;
+            var id2 = document.getElementsByName("membre2")[0].id;
+            $("#" + id1).select2();
+            $("#" + id2).select2();
+        });
     </script>
     <legend>${message:addEquipe}</legend>
     <t:zone t:id="membre2Zone">
-    <t:form t:id="addEquipeForm" class="equipeForm">
-        <t:errors/>
-        <table>
-            <tr>
-                <td class="center">
-                    <t:label for="numeroEquipe">${message:numeroEquipe}</t:label>
-                </td>
-                <td class="center">
-                    <t:label for="membre1">${message:membre1}</t:label>
-                </td>
-                <td class="center">
-                    <t:label for="membre2">${message:membre2}</t:label>
-                </td>
-                <td/>
-            </tr>
-            <tr>
-                <td class="center">
-                    <t:textfield t:id="numeroEquipe" style="width:30px" value="numeroEquipe"/>
-                </td>
+        <t:form t:id="addEquipeForm" class="equipeForm">
+            <t:errors/>
+            <table>
+                <tr>
+                    <td class="center">
+                        <t:label for="numeroEquipe">${message:numeroEquipe}</t:label>
+                    </td>
+                    <td class="center">
+                        <t:label for="membre1">${message:membre1} </t:label>
+                    </td>
+                    <td class="center">
+                        <t:label for="membre2">${message:membre2}</t:label>
+                    </td>
+                    <td/>
+                </tr>
+                <tr>
+                    <td class="center">
+                        <t:textfield t:id="numeroEquipe" style="width:30px" value="numeroEquipe"/>
+                    </td>
 
-                <td class="center">
-                    <t:select style="width:250px" t:id="membre1" id ="membre1" zone="membre2Zone" t:value="selectedMembre1" t:model="membre1SelectModel"
-                            />
-                </td>
-                <td class="center">
-                    <t:select style="width:250px" t:id="membre2"  id ="membre2"  t:value="selectedMembre2" t:model="membre2SelectModel"
-                            />
-                </td>
+                    <td class="center">
+                        <t:select style="width:250px" t:id="membre1" id="membre1" zone="membre2Zone"
+                                  t:value="selectedMembre1" t:model="membre1SelectModel"
+                                />
+                        <t:if test="selectedMembre1"><a href="UpdateMembre/${selectedMembre1}"
+                                                        id="update_${selectedMembre1}" class="update" name="updateMembre1"
+                                                        title="${message:update}" target="_blank"></a></t:if>
+                    </td>
+                    <td class="center">
+                        <t:select style="width:250px" zone="membre2Zone" t:id="membre2" id="membre2" t:value="selectedMembre2"
+                                  t:model="membre2SelectModel"
+                                />
+                        <t:if test="selectedMembre2"><a href="UpdateMembre/${selectedMembre2}"
+                                                        id="update_${selectedMembre2}" class="update" name="updateMembre2"
+                                                        title="${message:update}" target="_blank"></a></t:if>
+                    </td>
 
-                <td class="center">
-                    <t:submit value="${message:submit}"/>
-                </td>
-            </tr>
-        </table>
+                    <td class="center">
+                        <t:submit value="${message:submit}"/>
+                    </td>
+                </tr>
+            </table>
 
-    </t:form>
+        </t:form>
     </t:zone>
     <br/>
 </fieldset>
@@ -61,17 +74,20 @@
             ${currentEquipe.membre2.label}
         </p:membre2Cell>
         <p:deleteCell>
-            <t:actionlink t:id="delete"  class="delete" title="${message:delete}" id="delete" context="currentEquipe.idEquipe"></t:actionlink>
+            <t:actionlink t:id="delete" class="delete" title="${message:delete}" id="delete"
+                          context="currentEquipe.idEquipe"></t:actionlink>
         </p:deleteCell>
     </t:jquery.datatable>
     <br/>
 
     <form t:id="paramRandomForm">
-      <t:label for="numOfTerrain"/>  <t:textfield t:id="numOfTerrain" class="num" value="numOfTerrain" onkeyup="submit()"/>
-      <t:jquery.dialogAjaxLink t:id="randomize"  class="button" id="randomize" t:zone="randomListZone" t:dialog="randomizeEquipe">Générer
+        <t:label for="numOfTerrain"/>
+        <t:textfield t:id="numOfTerrain" class="num" value="numOfTerrain" onkeyup="submit()"/>
+        <t:jquery.dialogAjaxLink t:id="randomize" class="button" id="randomize" t:zone="randomListZone"
+                                 t:dialog="randomizeEquipe">Générer
             grille
             alléatoire
-      </t:jquery.dialogAjaxLink>
+        </t:jquery.dialogAjaxLink>
     </form>
 
 </t:zone>
@@ -91,7 +107,7 @@
                     ${currentEquipe.membre2.label}
                 </p:membre2Cell>
             </t:grid>
-            <br />
+            <br/>
         </t:loop>
     </t:zone>
 </t:jquery.dialog>

@@ -56,7 +56,7 @@ public class Equipe {
     @Property
     private Select membre1, membre2;
 
-  /*  @Persist*/
+    @Persist
     @Property
     private Integer selectedMembre1;
 
@@ -139,7 +139,7 @@ public class Equipe {
     private Asset templatePartie;
 
     void setupRender() {
-
+        selectedMembre1 = null;
         membres1 = new ArrayList<MembreEntity>();
         membres2 = new ArrayList<MembreEntity>();
 
@@ -197,6 +197,18 @@ public class Equipe {
             membres2 = new ArrayList<MembreEntity>();
         }
         membre2SelectModel = selectModelFactory.create(membres2, "label");
+
+        ajaxResponseRenderer.addRender(membre2Zone);
+        ajaxResponseRenderer.addCallback(new JavaScriptCallback() {
+            public void run(JavaScriptSupport javaScriptSupport) {
+                javaScriptSupport.addScript("var id1 = document.getElementsByName(\"membre1\")[0].id; var id2 = document.getElementsByName(\"membre2\")[0].id;  $(\"#\"+id1).select2(); $(\"#\"+id2).select2();");
+            }
+        });
+
+    }
+
+
+    void onValueChangedFromMembre2(Integer selectedMembre2) {
 
         ajaxResponseRenderer.addRender(membre2Zone);
         ajaxResponseRenderer.addCallback(new JavaScriptCallback() {

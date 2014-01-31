@@ -4,26 +4,24 @@
 
 <fieldset>
     <script>
-            <!--
-            $(document).ready(function () {
+        <!--
+        $(document).ready(function () {
 
             var elementsManche = document.getElementsByName("numeroManche");
-            if(elementsManche.length > 0)
-            {
+            if (elementsManche.length > 0) {
                 var id1 = elementsManche[0].id;
                 $("#" + id1).select2();
             }
 
             var elementsEquipe = document.getElementsByName("numeroEquipe");
-            if(elementsEquipe.length > 0)
-            {
+            if (elementsEquipe.length > 0) {
                 var id2 = elementsEquipe[0].id;
                 $("#" + id2).select2();
             }
 
 
         });
-            -->
+        -->
     </script>
     <legend>${message:encodeScore}</legend>
     <t:zone t:id="numeroEquipeZone">
@@ -31,44 +29,59 @@
             <t:errors/>
             <table>
                 <tr>
-                    <td >
-                        <t:label style="text-align:left; margin-right:10px; width:auto" for="numeroManche">${message:numeroManche}</t:label>
+                    <td>
+                        <t:label style="text-align:left; margin-right:10px; width:auto"
+                                 for="numeroManche">${message:numeroManche}</t:label>
                     </td>
                     <t:if test="selectedNumeroManche">
-                        <td >
-                            <t:label style="text-align:left; margin-right:10px; width:auto" for="numeroEquipe">${message:numeroEquipe}</t:label>
+                        <td>
+                            <t:label style="text-align:left; margin-right:10px; width:auto"
+                                     for="numeroEquipe">${message:numeroEquipe}</t:label>
                         </td>
 
                         <t:if test="selectedNumeroEquipe">
-                            <td >
-                                <t:label style="text-align:left; margin-right:10px; width:auto" for="pointMembre1">${membre1.label}</t:label>
+                            <td>
+                                <t:label style="text-align:left; margin-right:10px; width:auto"
+                                         for="pointMembre1">${membre1.label}
+                                    <a href="UpdateMembre/${membre1.idMembre}"
+                                       id="update_${membre1.idMembre}" class="update" name="updateMembre1"
+                                       title="${message:update}" target="_blank"></a></t:label>
                             </td>
-                            <td >
-                                <t:label style="text-align:left; margin-right:10px; width:auto" for="pointMembre2">${membre2.label}</t:label>
+                            <td>
+                                <t:label style="text-align:left; margin-right:10px; width:auto"
+                                         for="pointMembre2">${membre2.label}
+                                    <a href="UpdateMembre/${membre2.idMembre}"
+                                       id="update_${membre2.idMembre}" class="update" name="updateMembre2"
+                                       title="${message:update}" target="_blank"></a>
+                                </t:label>
                             </td>
                             <td/>
                         </t:if>
                     </t:if>
                 </tr>
                 <tr>
-                    <td >
-                        <t:select style="width:50px;  margin-right:10px;" t:id="numeroManche" id="numeroManche"  zone="numeroEquipeZone"
+                    <td>
+                        <t:select style="width:50px;  margin-right:10px;" t:id="numeroManche" id="numeroManche"
+                                  zone="numeroEquipeZone"
                                   t:value="selectedNumeroManche" t:model="literal:1=1,2=2,3=3,4=4"/>
                     </td>
                     <t:if test="selectedNumeroManche">
-                        <td >
-                            <t:select style="width:100px;  margin-right:10px;" t:id="numeroEquipe" id="numeroEquipe" zone="numeroEquipeZone"
+                        <td>
+                            <t:select style="width:100px;  margin-right:10px;" t:id="numeroEquipe" id="numeroEquipe"
+                                      zone="numeroEquipeZone"
                                       t:value="selectedNumeroEquipe" t:model="numberOfEquipeModel"/>
                         </td>
                         <t:if test="selectedNumeroEquipe">
-                            <td >
-                                <t:textfield style="margin-right:10px;" t:id="pointMembre1" id="pointMembre1" t:value="pointMembre1"/>
+                            <td>
+                                <t:textfield style="margin-right:10px;" t:id="pointMembre1" id="pointMembre1"
+                                             t:value="pointMembre1"/>
                             </td>
-                            <td >
-                                <t:textfield style="margin-right:10px;" t:id="pointMembre2" id="pointMembre2" t:value="pointMembre2"/>
+                            <td>
+                                <t:textfield style="margin-right:10px;" t:id="pointMembre2" id="pointMembre2"
+                                             t:value="pointMembre2"/>
                             </td>
 
-                            <td >
+                            <td>
                                 <t:submit value="${message:submit}"/>
                             </td>
                         </t:if>
@@ -84,8 +97,8 @@
 <br/>
 
 <t:jquery.datatable source="membresList" t:id="scoreList" id="scoreList" name="scoreList" class="dataTable"
-        style=" width: 100% ; " row="currentMembre" model="membreModel"
-        rowIndex="currentIndex" rowsPerPage="40">
+                    style=" width: 100% ; " row="currentMembre" model="membreModel"
+                    rowIndex="currentIndex" rowsPerPage="40">
 
     <p:equipeCell>
         ${equipe}
