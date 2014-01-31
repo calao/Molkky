@@ -5,6 +5,7 @@ import org.apache.tapestry5.alerts.AlertManager;
 import org.apache.tapestry5.alerts.Duration;
 import org.apache.tapestry5.alerts.Severity;
 import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.BeanModel;
@@ -15,6 +16,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.BeanModelSource;
+import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.molkky.dao.MembreDAO;
 import org.molkky.entities.MembreEntity;
 
@@ -30,11 +32,17 @@ import java.util.List;
  */
 public class Membre {
 
+    @InjectComponent
+    private Zone updateMembreFormZone;
+
     @Property
     private BeanModel<MembreEntity> membreModel;
 
     @Inject
     private BeanModelSource beanModelSource;
+
+    @Property
+    private MembreEntity selectedMembreToUpdate;
 
     @Property
     private MembreEntity currentMembre;
@@ -69,10 +77,13 @@ public class Membre {
     @Inject
     private AlertManager alertManager;
 
+    @Inject
+    private AjaxResponseRenderer ajaxResponseRenderer;
+
     void setupRender(){
         membreModel = beanModelSource.createDisplayModel(MembreEntity.class, messages);
-        membreModel.add("delete", null);
-        membreModel.include("nom","prenom", "delete");
+        membreModel.add("action", null);
+        membreModel.include("nom","prenom","action");
         membresList = membreDAO.findAll();
     }
 
@@ -100,6 +111,11 @@ public class Membre {
         membreDAO.save(new MembreEntity(prenom, nom, email, anniversaire)) ;
     }
 
+
+    Object onActionFromUpdateDialogAjaxLink()
+    {
+        return updateMembreFormZone;
+    }
 
 
 }

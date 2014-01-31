@@ -428,6 +428,16 @@ div.footer .legal a {
     text-decoration: none;
 }
 
+.update {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    background: url(images/edit.png) center;
+    background-size: 20px;
+    display: inline-block;
+    text-decoration: none;
+}
+
 .button {
     -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
     -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
