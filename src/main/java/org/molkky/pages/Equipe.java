@@ -354,7 +354,7 @@ public class Equipe {
 
             InputStream decodedInput = new ByteArrayInputStream(((ByteArrayOutputStream) out).toByteArray());
             System.out.println("Excel written successfully..");
-            return new XLSAttachement(decodedInput, "test");
+            return new XLSAttachement(decodedInput, "terrainExport");
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
