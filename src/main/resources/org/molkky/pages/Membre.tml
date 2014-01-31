@@ -2,23 +2,20 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-<t:zone t:id="zone">
 
-    <t:jquery.datatable t:model="membreModel" t:source="membresList" t:row="currentMembre">
-        <p:actionCell>
-            <t:jquery.dialogAjaxlink t:id="updateDialogAjaxLink" class="update" dialog="updateMembreFormDialog"
-                                     title="${message:update}" zone="updateMembreFormZone" id="updateDialogAjaxLink"
-                                     context="[currentMembre.idMembre]" ></t:jquery.dialogAjaxlink>
-            <t:actionlink t:id="delete" class="delete" title="${message:delete}" id="delete"
-                          context="currentMembre.idMembre"></t:actionlink>
-        </p:actionCell>
+<t:jquery.datatable id="membreDatatable" t:id="membreDatatable" name="membreDatatable" t:mode="false"  t:model="membreModel" t:source="membresList" t:row="currentMembre">
+    <p:actionCell>
+        <a href="UpdateMembre/${currentMembre.idMembre}" id="update_${currentMembre.idMembre}" class="update"  name="update"
+                      title="${message:update}"></a>
+        <t:actionlink t:id="delete" class="delete" title="${message:delete}" id="delete"
+                      context="currentMembre.idMembre"></t:actionlink>
+    </p:actionCell>
+</t:jquery.datatable>
 
 
-    </t:jquery.datatable>
-    <br/>
-    <t:jquery.dialoglink class="button" t:id="link1" t:dialog="addMembreFormDialog">Ajouter un membre
-    </t:jquery.dialoglink>
-</t:zone>
+<br/>
+
+<t:jquery.dialoglink class="button" t:id="link1" t:dialog="addMembreFormDialog">Ajouter un membre</t:jquery.dialoglink>
 
 <p:sidebar>
     <p>
@@ -51,37 +48,6 @@
             <t:submit/>
 
         </t:form>
-    </t:zone>
-</t:jquery.dialog>
-
-<t:jquery.dialog t:clientId="updateMembreFormDialog" t:id="updateMembreFormDialog" params="params">
-
-    <t:zone t:id="updateMembreFormZone" id="updateMembreFormZone" class="membreFormZone" t:update="show" >
-        <t:if test="selectedMembreToUpdate">
-        <t:form t:id="updateMembreForm" class="membreForm">
-            <p>
-                <t:label for="prenom">${message:prenom}</t:label>
-                <t:textfield t:id="prenomToUpdate" validate="required, maxlength=30"
-                             value="selectedMembreToUpdate.prenom"/>
-            </p>
-            <p>
-                <t:label for="nom">${message:nom}</t:label>
-                <t:textfield t:id="nomToUpdate" validate="required, maxlength=30" value="selectedMembreToUpdate.nom"/>
-            </p>
-            <p>
-                <t:label for="email">${message:email}</t:label>
-                <t:textfield t:id="emailToUpdate" value="selectedMembreToUpdate.email"/>
-            </p>
-            <p>
-                <t:label for="anniversaire">${message:anniversaire}</t:label>
-                <t:datefield t:id="anniversaireToUpdate" value="selectedMembreToUpdate.anniversaire"/>
-            </p>
-
-            <br/>
-            <t:submit/>
-
-        </t:form>
-        </t:if>
     </t:zone>
 </t:jquery.dialog>
 

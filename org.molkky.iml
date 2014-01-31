@@ -23,6 +23,17 @@
         </fileset>
       </configuration>
     </facet>
+    <facet type="tapestry" name="Tapestry">
+      <configuration>
+        <setting name="filterName" value="org.molkky" />
+        <setting name="applicationPackage" value="org.molkky" />
+        <setting name="version" value="5.3.3" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="Loomy">
+    <option name="newPagesClassesSourceDirectory" value="$MODULE_DIR$/src/main/java" />
+    <option name="newPagesTemplatesSourceDirectory" value="$MODULE_DIR$/src/main/java" />
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />

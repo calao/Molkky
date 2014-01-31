@@ -16,12 +16,15 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.BeanModelSource;
+import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.ajax.AjaxResponseRenderer;
 import org.molkky.dao.MembreDAO;
 import org.molkky.entities.MembreEntity;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,9 +35,6 @@ import java.util.List;
  */
 public class Membre {
 
-    @InjectComponent
-    private Zone updateMembreFormZone;
-
     @Property
     private BeanModel<MembreEntity> membreModel;
 
@@ -42,7 +42,7 @@ public class Membre {
     private BeanModelSource beanModelSource;
 
     @Property
-    private MembreEntity selectedMembreToUpdate;
+    private MembreEntity selectedMembreToUpdate ;
 
     @Property
     private MembreEntity currentMembre;
@@ -55,8 +55,11 @@ public class Membre {
     @Property
     private Form addMembreForm;
 
-    @Component
+    @InjectComponent
     private Zone membreFormZone;
+
+    @Inject
+    private Request request;
 
     @Component(id = "delete")
     private ActionLink delete;
@@ -85,6 +88,7 @@ public class Membre {
         membreModel.add("action", null);
         membreModel.include("nom","prenom","action");
         membresList = membreDAO.findAll();
+        selectedMembreToUpdate = membresList.get(0);
     }
 
     void onActionFromDelete(int id)
@@ -110,12 +114,5 @@ public class Membre {
     void addMembre(){
         membreDAO.save(new MembreEntity(prenom, nom, email, anniversaire)) ;
     }
-
-
-    Object onActionFromUpdateDialogAjaxLink()
-    {
-        return updateMembreFormZone;
-    }
-
 
 }

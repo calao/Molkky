@@ -1,0 +1,11 @@
+<html t:type="layout" title="Mettre à jour Membre"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+        >
+
+<t:if test="success">
+    ${success}
+</t:if>
+
+<t:beaneditform submitlabel="${message:submit-label}" t:id="updateMembreForm"  class="membreForm" object="selectedMembreToUpdate" exclude="idMembre, email, anniversaire">
+</t:beaneditform>
+</html>
